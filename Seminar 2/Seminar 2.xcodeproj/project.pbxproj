@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DBE3BC3228185BBA0023338C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3BC3128185BB90023338C /* SearchView.swift */; };
 		DBE70AD9280D6D92005D8804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE70AD8280D6D92005D8804 /* AppDelegate.swift */; };
 		DBE70ADB280D6D92005D8804 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE70ADA280D6D92005D8804 /* SceneDelegate.swift */; };
 		DBE70ADD280D6D92005D8804 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE70ADC280D6D92005D8804 /* ViewController.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DBE3BC3128185BB90023338C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		DBE70AD5280D6D92005D8804 /* Seminar 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Seminar 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBE70AD8280D6D92005D8804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBE70ADA280D6D92005D8804 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				DBE70AE1280D6D97005D8804 /* Assets.xcassets */,
 				DBE70AE3280D6D97005D8804 /* LaunchScreen.storyboard */,
 				DBE70AE6280D6D97005D8804 /* Info.plist */,
+				DBE3BC3128185BB90023338C /* SearchView.swift */,
 			);
 			path = "Seminar 2";
 			sourceTree = "<group>";
@@ -134,6 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBE3BC3228185BBA0023338C /* SearchView.swift in Sources */,
 				DBE70ADD280D6D92005D8804 /* ViewController.swift in Sources */,
 				DBE70AD9280D6D92005D8804 /* AppDelegate.swift in Sources */,
 				DBE70ADB280D6D92005D8804 /* SceneDelegate.swift in Sources */,
