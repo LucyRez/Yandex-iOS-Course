@@ -38,7 +38,7 @@ private extension RootViewController{
     }
     
     func makeHomeViewController() -> UIViewController{
-        let content = HomeViewController()
+        let content = UINavigationController(rootViewController: HomeViewController())
         
         content.tabBarItem = .init(title: "", image: UIImage(systemName: "house"), tag: 0)
         return content

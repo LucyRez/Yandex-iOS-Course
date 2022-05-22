@@ -14,14 +14,16 @@ class GalleryHomeViewController: UIViewController {
         super.viewDidLoad()
 
         view.addSubview(imageScrollView)
+        
         setUp()
         
         let image = UIImage(named: "HomeImage") ?? UIImage()
         self.imageScrollView.setImage(image: image)
+        
     }
     
     func setUp(){
-        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         imageScrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
