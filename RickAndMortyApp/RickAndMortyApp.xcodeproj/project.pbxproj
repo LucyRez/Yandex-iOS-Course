@@ -15,6 +15,12 @@
 		DB147ED5282073E700E0BEA2 /* CharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB147ED4282073E700E0BEA2 /* CharacterViewController.swift */; };
 		DB147ED8282078DE00E0BEA2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DB147ED7282078DE00E0BEA2 /* Kingfisher */; };
 		DB147EDA2820837D00E0BEA2 /* CharacterInfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB147ED92820837D00E0BEA2 /* CharacterInfoCellView.swift */; };
+		DB315367283A5D4000C6C7AB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB315366283A5D4000C6C7AB /* RootViewController.swift */; };
+		DB315369283A5DA900C6C7AB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB315368283A5DA900C6C7AB /* HomeViewController.swift */; };
+		DB31536E283A5DF700C6C7AB /* sf-ui-display-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB31536A283A5DF700C6C7AB /* sf-ui-display-bold.ttf */; };
+		DB31536F283A5DF700C6C7AB /* sf-ui-text-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB31536B283A5DF700C6C7AB /* sf-ui-text-semibold.ttf */; };
+		DB315370283A5DF700C6C7AB /* sf-ui-text-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB31536C283A5DF700C6C7AB /* sf-ui-text-bold.ttf */; };
+		DB315371283A5DF700C6C7AB /* sf-ui-display-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB31536D283A5DF700C6C7AB /* sf-ui-display-black.ttf */; };
 		DB7D6C8628299CA300A593FD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D6C8528299CA300A593FD /* SearchViewController.swift */; };
 		DB908FD72829547100F4923B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB908FD62829547100F4923B /* Colors.xcassets */; };
 		DB908FDA2829573000F4923B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB908FD92829573000F4923B /* Colors.swift */; };
@@ -31,6 +37,12 @@
 		DB147ECA2820725200E0BEA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB147ED4282073E700E0BEA2 /* CharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewController.swift; sourceTree = "<group>"; };
 		DB147ED92820837D00E0BEA2 /* CharacterInfoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterInfoCellView.swift; sourceTree = "<group>"; };
+		DB315366283A5D4000C6C7AB /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		DB315368283A5DA900C6C7AB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		DB31536A283A5DF700C6C7AB /* sf-ui-display-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "sf-ui-display-bold.ttf"; path = "../../../../../../fonts/sf-ui-display-bold.ttf"; sourceTree = "<group>"; };
+		DB31536B283A5DF700C6C7AB /* sf-ui-text-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "sf-ui-text-semibold.ttf"; path = "../../../../../../fonts/sf-ui-text-semibold.ttf"; sourceTree = "<group>"; };
+		DB31536C283A5DF700C6C7AB /* sf-ui-text-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "sf-ui-text-bold.ttf"; path = "../../../../../../fonts/sf-ui-text-bold.ttf"; sourceTree = "<group>"; };
+		DB31536D283A5DF700C6C7AB /* sf-ui-display-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "sf-ui-display-black.ttf"; path = "../../../../../../fonts/sf-ui-display-black.ttf"; sourceTree = "<group>"; };
 		DB7D6C8528299CA300A593FD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB908FD62829547100F4923B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		DB908FD92829573000F4923B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -68,6 +80,7 @@
 		DB147EBB2820724800E0BEA2 /* RickAndMortyApp */ = {
 			isa = PBXGroup;
 			children = (
+				DB315365283A5D2400C6C7AB /* Fonts */,
 				DB908FD82829571B00F4923B /* Resources */,
 				DB147ED12820727800E0BEA2 /* ViewControllers */,
 				DB147ED02820726800E0BEA2 /* Views */,
@@ -96,8 +109,21 @@
 				DB147ED4282073E700E0BEA2 /* CharacterViewController.swift */,
 				DB7D6C8528299CA300A593FD /* SearchViewController.swift */,
 				DBD53604282B07DE004823E4 /* FavoritesViewController.swift */,
+				DB315366283A5D4000C6C7AB /* RootViewController.swift */,
+				DB315368283A5DA900C6C7AB /* HomeViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DB315365283A5D2400C6C7AB /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DB31536D283A5DF700C6C7AB /* sf-ui-display-black.ttf */,
+				DB31536A283A5DF700C6C7AB /* sf-ui-display-bold.ttf */,
+				DB31536C283A5DF700C6C7AB /* sf-ui-text-bold.ttf */,
+				DB31536B283A5DF700C6C7AB /* sf-ui-text-semibold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		DB908FD82829571B00F4923B /* Resources */ = {
@@ -173,8 +199,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB908FD72829547100F4923B /* Colors.xcassets in Resources */,
+				DB315370283A5DF700C6C7AB /* sf-ui-text-bold.ttf in Resources */,
 				DB147EC92820725200E0BEA2 /* LaunchScreen.storyboard in Resources */,
 				DB147EC62820725200E0BEA2 /* Assets.xcassets in Resources */,
+				DB31536F283A5DF700C6C7AB /* sf-ui-text-semibold.ttf in Resources */,
+				DB315371283A5DF700C6C7AB /* sf-ui-display-black.ttf in Resources */,
+				DB31536E283A5DF700C6C7AB /* sf-ui-display-bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,8 +217,10 @@
 			files = (
 				DB147ED5282073E700E0BEA2 /* CharacterViewController.swift in Sources */,
 				DB7D6C8628299CA300A593FD /* SearchViewController.swift in Sources */,
+				DB315367283A5D4000C6C7AB /* RootViewController.swift in Sources */,
 				DBD53605282B07DE004823E4 /* FavoritesViewController.swift in Sources */,
 				DB908FDA2829573000F4923B /* Colors.swift in Sources */,
+				DB315369283A5DA900C6C7AB /* HomeViewController.swift in Sources */,
 				DB147EDA2820837D00E0BEA2 /* CharacterInfoCellView.swift in Sources */,
 				DB147EC12820724800E0BEA2 /* ViewController.swift in Sources */,
 				DB147EBD2820724800E0BEA2 /* AppDelegate.swift in Sources */,

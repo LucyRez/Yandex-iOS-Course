@@ -7,12 +7,29 @@
 
 import UIKit
 import Kingfisher
+import Combine
 
 final class CharacterViewController: UIViewController {
     
+    struct Model{
+        let name: String
+        let status: String
+        let species: String
+        let gender: String
+        let imageURL: URL
+    }
+    
+    init(model: Model){
+        self.model = model
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemBackground
         title = "Character"
         setUp()
@@ -20,16 +37,14 @@ final class CharacterViewController: UIViewController {
     }
     
     private func updateInfo(){
-        icon.kf.setImage(with: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg"))
-        nameLabel.text = "Rick Sanchez"
-        status.update(with: CharacterInfoCellView.Model(key: "Status:", value: "Alive", hasDivider: true))
-        species.update(with: CharacterInfoCellView.Model(key: "Species:", value: "Human", hasDivider: true))
-        gender.update(with: CharacterInfoCellView.Model(key: "Gender:", value: "Male", hasDivider: false))
+        icon.kf.setImage(with: model.imageURL)
+        nameLabel.text = model.name
+        status.update(with: CharacterInfoCellView.Model(key: "Status:", value: model.status, hasDivider: true))
+        species.update(with: CharacterInfoCellView.Model(key: "Species:", value: model.species, hasDivider: true))
+        gender.update(with: CharacterInfoCellView.Model(key: "Gender:", value: model.gender, hasDivider: false))
     }
     
     private func setUp(){
-        
-        
         view.addSubview(icon)
         view.addSubview(nameLabel)
         view.addSubview(status)
@@ -61,6 +76,7 @@ final class CharacterViewController: UIViewController {
         ])
     }
     
+    private let model: Model
     
     
     private lazy var icon: UIImageView = {

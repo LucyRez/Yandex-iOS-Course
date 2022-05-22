@@ -11,53 +11,30 @@ final class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        tableView.dataSource = self
-        tableView.delegate = self
+        view.backgroundColor = .white
         setUp()
         
     }
     
     private func setUp(){
         view.addSubview(tableView)
-        
-        
+        tableView.dataSource = self
+        tableView.delegate = self
+
         
         view.subviews.forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         tableView.tableHeaderView = Header(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 78))
-        
-        
-        
-        
+              
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
-        
-        
+        tableView.backgroundColor = .white
         tableView.separatorStyle = .none
     }
-    
-//    private lazy var viewLabel: UILabel = {
-//        let ret = UILabel()
-//        ret.frame = CGRect(x: 0, y: 0, width: view.bounds.width-32, height: 41)
-//        ret.numberOfLines = 1
-//        ret.textColor = .main
-//        ret.font = .boldSystemFont(ofSize: 34)
-//        ret.text = "Favorites"
-//
-//        NSLayoutConstraint.activate([
-//            ret.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 19),
-//            ret.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: 16),
-//
-//        ])
-//
-//        return ret
-//    }()
-    
     
     private lazy var tableView: UITableView = {
         let ret = UITableView()
@@ -80,7 +57,7 @@ private final class Header: UIView{
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
-            label.topAnchor.constraint(equalTo: topAnchor, constant: 19),
+            label.topAnchor.constraint(equalTo: topAnchor, constant: 0),
             label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
         ])
     }
