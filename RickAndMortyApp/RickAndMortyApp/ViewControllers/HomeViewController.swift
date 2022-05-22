@@ -26,8 +26,11 @@ class HomeViewController: UIViewController {
             }
         }
         
-        edgesForExtendedLayout = []
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         
+        homeImage.isUserInteractionEnabled = true
+        homeImage.addGestureRecognizer(tapGestureRecognizer)
+                
     }
     
     private func setUp(){
@@ -97,6 +100,15 @@ class HomeViewController: UIViewController {
         return ret
     }()
 
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        guard let tappedImage = tapGestureRecognizer.view as? UIImageView else {
+            return
+        }
+        
+        navigationController?.pushViewController(GalleryHomeViewController(), animated: true)
+    }
   
 
 }
+
+

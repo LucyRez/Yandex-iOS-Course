@@ -21,6 +21,8 @@
 		DB31536F283A5DF700C6C7AB /* sf-ui-text-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB31536B283A5DF700C6C7AB /* sf-ui-text-semibold.ttf */; };
 		DB315370283A5DF700C6C7AB /* sf-ui-text-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB31536C283A5DF700C6C7AB /* sf-ui-text-bold.ttf */; };
 		DB315371283A5DF700C6C7AB /* sf-ui-display-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB31536D283A5DF700C6C7AB /* sf-ui-display-black.ttf */; };
+		DB32F51C283AB5B8005902CB /* GalleryHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32F51B283AB5B7005902CB /* GalleryHomeViewController.swift */; };
+		DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32F51D283AC55A005902CB /* ImageScrollView.swift */; };
 		DB7D6C8628299CA300A593FD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D6C8528299CA300A593FD /* SearchViewController.swift */; };
 		DB908FD72829547100F4923B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB908FD62829547100F4923B /* Colors.xcassets */; };
 		DB908FDA2829573000F4923B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB908FD92829573000F4923B /* Colors.swift */; };
@@ -43,6 +45,8 @@
 		DB31536B283A5DF700C6C7AB /* sf-ui-text-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "sf-ui-text-semibold.ttf"; path = "../../../../../../fonts/sf-ui-text-semibold.ttf"; sourceTree = "<group>"; };
 		DB31536C283A5DF700C6C7AB /* sf-ui-text-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "sf-ui-text-bold.ttf"; path = "../../../../../../fonts/sf-ui-text-bold.ttf"; sourceTree = "<group>"; };
 		DB31536D283A5DF700C6C7AB /* sf-ui-display-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "sf-ui-display-black.ttf"; path = "../../../../../../fonts/sf-ui-display-black.ttf"; sourceTree = "<group>"; };
+		DB32F51B283AB5B7005902CB /* GalleryHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryHomeViewController.swift; sourceTree = "<group>"; };
+		DB32F51D283AC55A005902CB /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		DB7D6C8528299CA300A593FD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB908FD62829547100F4923B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		DB908FD92829573000F4923B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				DB147ED92820837D00E0BEA2 /* CharacterInfoCellView.swift */,
+				DB32F51D283AC55A005902CB /* ImageScrollView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -111,6 +116,7 @@
 				DBD53604282B07DE004823E4 /* FavoritesViewController.swift */,
 				DB315366283A5D4000C6C7AB /* RootViewController.swift */,
 				DB315368283A5DA900C6C7AB /* HomeViewController.swift */,
+				DB32F51B283AB5B7005902CB /* GalleryHomeViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -215,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB32F51C283AB5B8005902CB /* GalleryHomeViewController.swift in Sources */,
 				DB147ED5282073E700E0BEA2 /* CharacterViewController.swift in Sources */,
 				DB7D6C8628299CA300A593FD /* SearchViewController.swift in Sources */,
 				DB315367283A5D4000C6C7AB /* RootViewController.swift in Sources */,
@@ -223,6 +230,7 @@
 				DB315369283A5DA900C6C7AB /* HomeViewController.swift in Sources */,
 				DB147EDA2820837D00E0BEA2 /* CharacterInfoCellView.swift in Sources */,
 				DB147EC12820724800E0BEA2 /* ViewController.swift in Sources */,
+				DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */,
 				DB147EBD2820724800E0BEA2 /* AppDelegate.swift in Sources */,
 				DB147EBF2820724800E0BEA2 /* SceneDelegate.swift in Sources */,
 			);
