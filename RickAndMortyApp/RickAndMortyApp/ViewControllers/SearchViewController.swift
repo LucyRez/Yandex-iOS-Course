@@ -7,9 +7,12 @@
 
 import UIKit
 
-final class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController, UISearchBarDelegate {
     
     var stateController: StateController
+    
+    var isSearching: Bool
+    var filteredCharacters: [CharacterModel]
     
     var allCharacters: [CharacterModel] {
         return stateController.allCharacters
@@ -21,6 +24,8 @@ final class SearchViewController: UIViewController {
     
     init(state: StateController){
         stateController = state
+        isSearching = false
+        filteredCharacters = stateController.allCharacters
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,7 +36,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         navigationController?.isNavigationBarHidden = true
@@ -43,7 +48,6 @@ final class SearchViewController: UIViewController {
         viewForTable.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
@@ -51,7 +55,6 @@ final class SearchViewController: UIViewController {
             viewForTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             viewForTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             viewForTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-            
         ])
         
         viewForTable.addSubview(tableView)
@@ -66,19 +69,19 @@ final class SearchViewController: UIViewController {
         
     }
     
-    private let tableView: UITableView = {
-        let table = UITableView(frame: .zero, style: .grouped)
-        table.register(SectionView.self, forCellReuseIdentifier: SectionView.identifier)
-        return table
-    }()
-    
     private let viewForTable: UIView = {
         return UIView()
     }()
     
+    private let tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .grouped)
+        table.register(SectionView.self, forCellReuseIdentifier: SectionView.identifier)
+        
+        return table
+    }()
+    
     
     private lazy var searchBar: UISearchBar = {
-        
         let ret = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 55))
         ret.showsCancelButton = false
         ret.searchTextField.backgroundColor = .white
@@ -87,25 +90,33 @@ final class SearchViewController: UIViewController {
         ret.layer.cornerRadius = 10
         ret.placeholder = "Search for character"
         return ret
-        
     }()
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if(!searchText.isEmpty){
+            filteredCharacters = allCharacters.filter{(item: CharacterModel) -> Bool in
+                return item.name.range(of: searchText, options: .caseInsensitive) != nil
+            }
+            print(filteredCharacters)
+            tableView.reloadData()
+        }
+     
+    }
     
     
 }
 
 
-
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+       1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SectionView.identifier, for: indexPath) as? SectionView else{
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SectionView.identifier , for: indexPath) as? SectionView else{
             return UITableViewCell()
         }
-        
-        cell.recents = recentCharacters
+        cell.charactersToShow = filteredCharacters
         return cell
     }
     
@@ -114,7 +125,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        46
+       46
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -130,7 +141,17 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 
 final class SectionView: UITableViewCell{
     
-    var recents: [CharacterModel] = []
+    var characters: [CharacterModel] = []
+    
+    var charactersToShow: [CharacterModel] {
+        set{
+            characters = newValue
+            collection.reloadData()
+        }
+        get{
+            return characters
+        }
+    }
     
     static let identifier = "SectionView"
     private let collection: UICollectionView = {
@@ -144,6 +165,7 @@ final class SectionView: UITableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         contentView.addSubview(collection)
         collection.delegate = self
         collection.dataSource = self
@@ -162,14 +184,16 @@ final class SectionView: UITableViewCell{
 
 extension SectionView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        recents.count
+        charactersToShow.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterIconCell.identifier, for: indexPath) as? CharacterIconCell else{
             return UICollectionViewCell()
         }
-        cell.iconURL = recents[indexPath.row].imageURL
+        
+        
+        cell.iconURL = charactersToShow[indexPath.row].imageURL
         
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 1
