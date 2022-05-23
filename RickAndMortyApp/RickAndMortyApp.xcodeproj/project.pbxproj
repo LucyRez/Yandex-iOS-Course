@@ -23,6 +23,7 @@
 		DB315371283A5DF700C6C7AB /* sf-ui-display-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB31536D283A5DF700C6C7AB /* sf-ui-display-black.ttf */; };
 		DB32F51C283AB5B8005902CB /* GalleryHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32F51B283AB5B7005902CB /* GalleryHomeViewController.swift */; };
 		DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32F51D283AC55A005902CB /* ImageScrollView.swift */; };
+		DB32F521283BAB6B005902CB /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32F520283BAB6A005902CB /* StateController.swift */; };
 		DB7D6C8628299CA300A593FD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D6C8528299CA300A593FD /* SearchViewController.swift */; };
 		DB908FD72829547100F4923B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB908FD62829547100F4923B /* Colors.xcassets */; };
 		DB908FDA2829573000F4923B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB908FD92829573000F4923B /* Colors.swift */; };
@@ -47,6 +48,7 @@
 		DB31536D283A5DF700C6C7AB /* sf-ui-display-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "sf-ui-display-black.ttf"; path = "../../../../../../fonts/sf-ui-display-black.ttf"; sourceTree = "<group>"; };
 		DB32F51B283AB5B7005902CB /* GalleryHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryHomeViewController.swift; sourceTree = "<group>"; };
 		DB32F51D283AC55A005902CB /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
+		DB32F520283BAB6A005902CB /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		DB7D6C8528299CA300A593FD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB908FD62829547100F4923B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		DB908FD92829573000F4923B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		DB147EBB2820724800E0BEA2 /* RickAndMortyApp */ = {
 			isa = PBXGroup;
 			children = (
+				DB32F51F283BAB43005902CB /* Controllers */,
 				DB315365283A5D2400C6C7AB /* Fonts */,
 				DB908FD82829571B00F4923B /* Resources */,
 				DB147ED12820727800E0BEA2 /* ViewControllers */,
@@ -130,6 +133,14 @@
 				DB31536B283A5DF700C6C7AB /* sf-ui-text-semibold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		DB32F51F283BAB43005902CB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DB32F520283BAB6A005902CB /* StateController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		DB908FD82829571B00F4923B /* Resources */ = {
@@ -229,6 +240,7 @@
 				DB908FDA2829573000F4923B /* Colors.swift in Sources */,
 				DB315369283A5DA900C6C7AB /* HomeViewController.swift in Sources */,
 				DB147EDA2820837D00E0BEA2 /* CharacterInfoCellView.swift in Sources */,
+				DB32F521283BAB6B005902CB /* StateController.swift in Sources */,
 				DB147EC12820724800E0BEA2 /* ViewController.swift in Sources */,
 				DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */,
 				DB147EBD2820724800E0BEA2 /* AppDelegate.swift in Sources */,
