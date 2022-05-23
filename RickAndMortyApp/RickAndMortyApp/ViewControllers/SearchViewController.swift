@@ -64,8 +64,10 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = viewForTable.bounds
-        tableView.bounds = tableView.frame.insetBy(dx: 16.0, dy: 0)
         tableView.backgroundColor = .white
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        //tableView.bounds = tableView.frame.insetBy(dx: 16.0, dy: 0)
         
     }
     
@@ -75,8 +77,8 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
     
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(SectionView.self, forCellReuseIdentifier: SectionView.identifier)
-        
+        table.register(RecentSectionView.self, forCellReuseIdentifier: RecentSectionView.identifier)
+        table.register(SearchSectionView.self, forCellReuseIdentifier: SearchSectionView.identifier)
         return table
     }()
     
@@ -93,14 +95,18 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
     }()
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if(!searchText.isEmpty){
-            filteredCharacters = allCharacters.filter{(item: CharacterModel) -> Bool in
-                return item.name.range(of: searchText, options: .caseInsensitive) != nil
-            }
-            print(filteredCharacters)
-            tableView.reloadData()
+        filteredCharacters = searchText.isEmpty ? allCharacters : allCharacters.filter{(item: CharacterModel) -> Bool in
+            return item.name.range(of: searchText, options: .caseInsensitive) != nil
         }
-     
+        
+        if(searchText.isEmpty){
+            isSearching = false
+        }else{
+            isSearching = true
+        }
+        
+        tableView.reloadData()
+        
     }
     
     
@@ -109,37 +115,49 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       1
+        isSearching ? filteredCharacters.count : 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SectionView.identifier , for: indexPath) as? SectionView else{
-            return UITableViewCell()
+        
+        if !isSearching {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSectionView.identifier , for: indexPath) as? RecentSectionView else{
+                return UITableViewCell()
+            }
+            cell.charactersToShow = filteredCharacters
+            return cell
+            
+        }else{
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchSectionView.identifier , for: indexPath) as? SearchSectionView else{
+                return UITableViewCell()
+            }
+            cell.name = filteredCharacters[indexPath.row].name
+            cell.species = filteredCharacters[indexPath.row].species
+            cell.iconURL = filteredCharacters[indexPath.row].imageURL
+            return cell
         }
-        cell.charactersToShow = filteredCharacters
-        return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-       46
-    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        46
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        160
+        isSearching ? 200 : 160
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Recent"
+        return isSearching ? "" : "Recent"
     }
     
 }
 
 
-final class SectionView: UITableViewCell{
+final class RecentSectionView: UITableViewCell{
     
     var characters: [CharacterModel] = []
     
@@ -153,7 +171,7 @@ final class SectionView: UITableViewCell{
         }
     }
     
-    static let identifier = "SectionView"
+    static let identifier = "RecentSectionView"
     private let collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -173,8 +191,9 @@ final class SectionView: UITableViewCell{
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        collection.frame = contentView.bounds
+        collection.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0))
         collection.showsHorizontalScrollIndicator = false
+        
     }
     
     required init?(coder: NSCoder) {
@@ -182,7 +201,7 @@ final class SectionView: UITableViewCell{
     }
 }
 
-extension SectionView: UICollectionViewDelegate, UICollectionViewDataSource{
+extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         charactersToShow.count
     }
@@ -247,3 +266,128 @@ final class CharacterIconCell: UICollectionViewCell{
     
     
 }
+
+final class SearchSectionView: UITableViewCell{
+    static let identifier = "SearchSectionView"
+    
+    var iconURL: URL{
+        set{
+            icon.kf.setImage(with: newValue)
+        }
+        get{
+            return URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")!
+        }
+    }
+    
+    var name: String{
+        set{
+            let str = newValue.split(separator: " ")
+            var res = String(str[0]) + "\n"
+            for (index, item) in str.enumerated(){
+                if index != 0{
+                    res += (String(item) + " ")
+                }
+            }
+            
+            nameLabel.text = res
+        }
+        
+        get{
+            return "Rick Sanchez"
+        }
+    }
+    
+    var species: String{
+        set{
+            speciesLabel.text = newValue
+        }
+        get{
+            return "Human"
+        }
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(icon)
+        contentView.addSubview(labelsPlaceholder)
+        labelsPlaceholder.addArrangedSubview(nameLabel)
+        labelsPlaceholder.addArrangedSubview(speciesLabel)
+        //contentView.addSubview(nameLabel)
+        contentView.addSubview(line)
+        updateInfo()
+        
+        contentView.subviews.forEach{
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        NSLayoutConstraint.activate([
+            
+            icon.widthAnchor.constraint(equalToConstant: 120),
+            icon.heightAnchor.constraint(equalToConstant: 160),
+            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            labelsPlaceholder.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            labelsPlaceholder.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 24),
+            labelsPlaceholder.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            line.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 23),
+            line.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            line.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func updateInfo(){
+        icon.kf.setImage(with: iconURL)
+        nameLabel.text = name
+        speciesLabel.text = species
+        
+    }
+    
+    private lazy var icon: UIImageView = {
+        let ret = UIImageView()
+        ret.layer.cornerRadius = 10
+        ret.layer.masksToBounds = true
+        ret.layer.borderWidth = 1
+        ret.layer.borderColor = CGColor.init(red: 61/256, green: 62/256, blue: 64/256, alpha: 1)
+        ret.contentMode = .scaleAspectFill
+        return ret
+    }()
+    
+    private lazy var labelsPlaceholder: UIStackView = {
+        let stack = UIStackView()
+        stack.alignment = .fill
+        stack.distribution = .fillEqually
+        stack.contentMode = .left
+        stack.axis = .vertical
+        stack.spacing = 16
+        return stack
+    }()
+    
+    private lazy var nameLabel: UILabel = {
+        let ret = UILabel()
+        ret.textColor = .main
+        ret.lineBreakMode = .byWordWrapping
+        ret.numberOfLines = 0
+        ret.font = .boldSystemFont(ofSize: 22)
+        return ret
+    }()
+    
+    private lazy var speciesLabel: UILabel = {
+        let ret = UILabel()
+        ret.textColor = .key
+        ret.numberOfLines = 1
+        ret.font = .boldSystemFont(ofSize: 17)
+        return ret
+    }()
+    
+    private let line: Line = {
+        let ret = Line()
+        return ret
+    }()
+    
+}
+
+

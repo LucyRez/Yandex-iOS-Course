@@ -9,6 +9,8 @@ import UIKit
 
 final class RootViewController: UITabBarController {
 
+    private var appState = StateController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,13 +35,13 @@ final class RootViewController: UITabBarController {
 
 private extension RootViewController{
     func makeSearchViewController() -> UIViewController{
-        let content = SearchViewController(state: StateController())
+        let content = SearchViewController(state: appState)
         content.tabBarItem = .init(title: "", image: UIImage(systemName: "magnifyingglass"), tag: 0)
         return content
     }
     
     func makeFavouritesViewController() -> UIViewController{
-        let container = FavoritesViewController()
+        let container = FavoritesViewController(state: appState)
         container.tabBarItem = .init(title: "", image: UIImage(systemName: "heart"), tag: 0)
         return container
     }

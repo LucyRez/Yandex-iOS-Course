@@ -9,6 +9,19 @@ import UIKit
 
 final class FavoritesViewController: UIViewController {
     
+    var stateController: StateController
+    var favorites: [CharacterModel]
+    
+    init(state: StateController){
+        stateController = state
+        favorites = stateController.favorites
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -70,13 +83,16 @@ private final class Header: UIView{
 
 extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        8
+        favorites.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterCell.identifier, for: indexPath) as? CharacterCell else{
             return UITableViewCell()
         }
+        
+        cell.iconURL = favorites[indexPath.row].imageURL
+        cell.name = favorites[indexPath.row].name
         
         return cell
     }
@@ -89,12 +105,29 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
         139
     }
     
-    
 }
 
 final class CharacterCell: UITableViewCell{
     static let identifier = "CharacterCell"
     
+    var iconURL: URL{
+        set{
+            icon.kf.setImage(with: newValue)
+        }
+        get{
+            return URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")!
+        }
+    }
+    
+    // TODO: Add property
+    var name: String{
+        set{
+            nameLabel.text = newValue
+        }
+        get{
+            return "Rick Sanchez"
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -114,8 +147,9 @@ final class CharacterCell: UITableViewCell{
             icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             nameLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 24),
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 52),
-            //nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            //nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 52),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             line.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 22),
             line.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             line.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
@@ -127,8 +161,8 @@ final class CharacterCell: UITableViewCell{
     }
     
     private func updateInfo(){
-        icon.kf.setImage(with: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg"))
-        nameLabel.text = "Rick Sanchez"
+        icon.kf.setImage(with: iconURL)
+        nameLabel.text = name
     }
     
     private lazy var icon: UIImageView = {
@@ -143,8 +177,9 @@ final class CharacterCell: UITableViewCell{
     
     private lazy var nameLabel: UILabel = {
         let ret = UILabel()
-        ret.numberOfLines = 1
         ret.textColor = .main
+        ret.lineBreakMode = .byWordWrapping
+        ret.numberOfLines = 0
         ret.font = .boldSystemFont(ofSize: 22)
         return ret
     }()
@@ -153,6 +188,9 @@ final class CharacterCell: UITableViewCell{
         let ret = Line()
         return ret
     }()
+    
+    
+    
     
     //    override func draw(_ rect: CGRect) {
     //      guard let context = UIGraphicsGetCurrentContext() else {

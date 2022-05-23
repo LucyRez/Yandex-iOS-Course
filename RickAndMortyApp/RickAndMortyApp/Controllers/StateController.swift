@@ -34,7 +34,10 @@ class StateController{
         
     ]
     
-    let favorites: [CharacterModel] = []
+    let favorites: [CharacterModel] = [
+        CharacterModel(name: "Abadango Cluster Princess", status: "Alive", species: "Alien", gender: "Female", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/6.jpeg")!),
+        CharacterModel(name: "Abradolf Lincler", status: "Unknown", species: "Human", gender: "Male", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/7.jpeg")!),
+        CharacterModel(name: "Adjudicator Rick", status: "Dead", species: "Human", gender: "Male", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/8.jpeg")!),]
     
     let recents: [CharacterModel] = [
         CharacterModel(name: "Rick Sanchez", status: "Alive", species: "Human", gender: "Male", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")!),
