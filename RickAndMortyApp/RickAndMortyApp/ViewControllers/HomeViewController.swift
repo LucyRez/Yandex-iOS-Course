@@ -14,17 +14,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
   
         setUp()
-        
-        if #available(iOS 13.0, *) {
-            let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
-            tabBarAppearance.configureWithDefaultBackground()
-            tabBarAppearance.backgroundColor = UIColor.white
-            UITabBar.appearance().standardAppearance = tabBarAppearance
+        navigationController?.isNavigationBarHidden = true
 
-            if #available(iOS 15.0, *) {
-                UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-            }
-        }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         

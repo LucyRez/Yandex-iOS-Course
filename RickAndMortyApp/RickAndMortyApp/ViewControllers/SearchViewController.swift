@@ -12,23 +12,37 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(tableView)
+        
         tableView.delegate = self
         tableView.dataSource = self
+        navigationController?.isNavigationBarHidden = true
+        view.addSubview(searchBar)
+        view.addSubview(viewForTable)
+
         
-        let ret = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 55))
-        ret.layer.cornerRadius = 10
-        ret.layer.borderColor = CGColor.init(red: 61/256, green: 62/256, blue: 64/256, alpha: 1 )
-        ret.layer.borderWidth = 2
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        viewForTable.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.tableHeaderView = ret
+        NSLayoutConstraint.activate([
+        
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            viewForTable.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            viewForTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            viewForTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            viewForTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+
+        ])
+        
+        viewForTable.addSubview(tableView)
         
     }
-    
+        
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
-        tableView.bounds = tableView.frame.insetBy(dx: 16.0, dy: 16.0)
+        tableView.frame = viewForTable.bounds
+        tableView.bounds = tableView.frame.insetBy(dx: 16.0, dy: 0)
         tableView.backgroundColor = .white
         
     }
@@ -38,6 +52,33 @@ final class SearchViewController: UIViewController {
         table.register(SectionView.self, forCellReuseIdentifier: SectionView.identifier)
         return table
     }()
+    
+    private let viewForTable: UIView = {
+        return UIView()
+    }()
+    
+    
+    private lazy var searchBar: UISearchBar = {
+        
+        let ret = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 55))
+        ret.showsCancelButton = false
+        ret.searchTextField.backgroundColor = .white
+        ret.layer.borderColor = CGColor.init(red: 61/256, green: 62/256, blue: 64/256, alpha: 1 )
+        ret.layer.borderWidth = 2
+        ret.layer.cornerRadius = 10
+        ret.placeholder = "Search for character"
+        return ret
+        
+    }()
+    
+//    private lazy var search: UIView = {
+//        let ret = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 55))
+//        ret.layer.cornerRadius = 10
+//        ret.layer.borderColor = CGColor.init(red: 61/256, green: 62/256, blue: 64/256, alpha: 1 )
+//        ret.layer.borderWidth = 2
+//
+//        return ret
+//    }()
     
     
 }
