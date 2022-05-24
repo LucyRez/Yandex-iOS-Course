@@ -94,7 +94,7 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
         let ret = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 55))
         ret.showsCancelButton = false
         ret.searchTextField.backgroundColor = .background
-        ret.layer.borderColor = UIColor.background.cgColor
+        ret.layer.borderColor = UIColor.main.cgColor
         ret.layer.borderWidth = 2
         ret.layer.cornerRadius = 10
         ret.placeholder = "Search for character"
