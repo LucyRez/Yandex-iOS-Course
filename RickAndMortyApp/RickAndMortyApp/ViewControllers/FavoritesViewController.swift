@@ -29,6 +29,13 @@ final class FavoritesViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        favorites = stateController.favorites
+        tableView.reloadData()
+    }
+ 
+    
     private func setUp(){
         view.addSubview(tableView)
         tableView.dataSource = self
@@ -95,6 +102,14 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
         cell.name = favorites[indexPath.row].name
         
         return cell
+    }
+    
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let character = favorites[indexPath.row]
+        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: stateController)
+        
+        navigationController?.pushViewController(characterVC, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -34,15 +34,64 @@ class StateController{
         
     ]
     
-    let favorites: [CharacterModel] = [
+    var favorites: [CharacterModel] = [
         CharacterModel(name: "Abadango Cluster Princess", status: "Alive", species: "Alien", gender: "Female", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/6.jpeg")!),
         CharacterModel(name: "Abradolf Lincler", status: "Unknown", species: "Human", gender: "Male", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/7.jpeg")!),
         CharacterModel(name: "Adjudicator Rick", status: "Dead", species: "Human", gender: "Male", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/8.jpeg")!),]
     
-    let recents: [CharacterModel] = [
+    var recents: [CharacterModel] = [
         CharacterModel(name: "Rick Sanchez", status: "Alive", species: "Human", gender: "Male", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")!),
         CharacterModel(name: "Morty Smith", status: "Alive", species: "Human", gender: "Male", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/2.jpeg")!),
         CharacterModel(name: "Summer Smith", status: "Alive", species: "Human", gender: "Female", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/3.jpeg")!),]
+    
+    func addToFavorites(name: String){
+        let characterFound = favorites.first(where: {(character: CharacterModel) -> Bool in
+            character.name == name
+        } )
+        
+        if characterFound != nil{
+            return
+        }
+        
+        let character = allCharacters.first(where: {(character: CharacterModel) -> Bool in
+            character.name == name
+        } )
+        
+        favorites.append(character!)
+    
+    }
+    
+    func removeFromFavourites(name: String){
+        let characterFound = favorites.firstIndex(where: {(character: CharacterModel) -> Bool in
+            character.name == name
+        } )
+        
+        if characterFound != nil{
+            favorites.remove(at: characterFound!)
+        }
+        
+        return
+    }
+    
+    func addToRecent(name: String){
+        if(recents.count > 10){
+            recents.popLast()
+        }
+        
+        let characterFound = recents.firstIndex(where: {(character: CharacterModel) -> Bool in
+            character.name == name
+        } )
+        
+        if characterFound != nil{
+            recents.remove(at: characterFound!)
+        }
+        
+        let character = allCharacters.first(where: {(character: CharacterModel) -> Bool in
+            character.name == name
+        } )
+        
+        recents.insert(character!, at: 0)
+    }
     
 }
 

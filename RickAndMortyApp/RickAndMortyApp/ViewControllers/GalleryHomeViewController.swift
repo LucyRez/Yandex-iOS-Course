@@ -35,6 +35,7 @@ class GalleryHomeViewController: UIViewController {
     }
     
     
+    
     private lazy var imageScrollView: ImageScrollView = {
         return ImageScrollView(frame: view.bounds)
     }()

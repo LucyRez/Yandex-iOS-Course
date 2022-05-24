@@ -61,6 +61,12 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+        tableView.reloadData()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = viewForTable.bounds
@@ -124,7 +130,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSectionView.identifier , for: indexPath) as? RecentSectionView else{
                 return UITableViewCell()
             }
-            cell.charactersToShow = filteredCharacters
+            cell.charactersToShow = stateController.recents
             return cell
             
         }else{
@@ -136,6 +142,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             cell.iconURL = filteredCharacters[indexPath.row].imageURL
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let character = filteredCharacters[indexPath.row]
+        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: stateController)
+        
+        navigationController?.pushViewController(characterVC, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -218,6 +231,12 @@ extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         cell.layer.borderWidth = 1
         cell.layer.borderColor = CGColor.init(red: 61/256, green: 62/256, blue: 64/256, alpha: 1)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let character = charactersToShow[indexPath.row]
+        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: StateController())
+
     }
 }
 

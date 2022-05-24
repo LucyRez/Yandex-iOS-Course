@@ -41,13 +41,13 @@ private extension RootViewController{
     }
     
     func makeFavouritesViewController() -> UIViewController{
-        let container = FavoritesViewController(state: appState)
+        let container = UINavigationController(rootViewController: FavoritesViewController(state: appState))
         container.tabBarItem = .init(title: "", image: UIImage(systemName: "heart"), tag: 0)
         return container
     }
     
     func makeCharacterViewController() -> UIViewController{
-        let content = CharacterViewController(model: CharacterViewController.Model.init(name: "Rick", status: "Alive", species: "Human", gender: "Male", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")!))
+        let content = CharacterViewController(model: CharacterViewController.Model.init(name: "Rick", status: "Alive", species: "Human", gender: "Male", imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")!, isLiked: false), state: appState)
         
         content.tabBarItem = .init(title: "", image: UIImage(systemName: ""), tag: 0)
         return content
