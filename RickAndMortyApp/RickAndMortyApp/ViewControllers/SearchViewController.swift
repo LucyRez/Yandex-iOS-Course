@@ -39,7 +39,6 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        navigationController?.isNavigationBarHidden = true
         view.addSubview(searchBar)
         view.addSubview(viewForTable)
         
@@ -65,6 +64,12 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         tableView.reloadData()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+
     }
     
     override func viewDidLayoutSubviews() {

@@ -34,6 +34,12 @@ final class FavoritesViewController: UIViewController {
         favorites = stateController.favorites
         tableView.reloadData()
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+
+    }
  
     
     private func setUp(){

@@ -13,10 +13,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
   
-        setUp()
-        navigationController?.isNavigationBarHidden = true
 
-        
+        setUp()
+
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         
         homeImage.isUserInteractionEnabled = true
@@ -49,6 +48,12 @@ class HomeViewController: UIViewController {
             
         ])
         
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+
     }
     
     private lazy var homeImage: UIImageView = {
