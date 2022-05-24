@@ -36,7 +36,7 @@ final class RootViewController: UITabBarController {
 
 private extension RootViewController{
     func makeSearchViewController() -> UIViewController{
-        let content = SearchViewController(state: appState)
+        let content = UINavigationController(rootViewController: SearchViewController(state: appState))
         content.tabBarItem = .init(title: "", image: UIImage(systemName: "magnifyingglass")?.withTintColor(.main), tag: 0)
         return content
     }

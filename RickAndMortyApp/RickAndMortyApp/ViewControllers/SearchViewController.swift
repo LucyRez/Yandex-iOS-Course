@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class SearchViewController: UIViewController, UISearchBarDelegate {
     
@@ -150,9 +151,15 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let character = filteredCharacters[indexPath.row]
-        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: stateController)
+        let isLiked = stateController.favorites.contains(where: {(char: CharacterModel) -> Bool in
+            char.name == character.name
+        })
         
-        navigationController?.pushViewController(characterVC, animated: true)
+        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: isLiked ))
+//        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: stateController)
+        
+        stateController.addToRecent(name: character.name)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -240,9 +247,16 @@ extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let character = charactersToShow[indexPath.row]
-        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: state ?? StateController())
         
-        navigationController?.pushViewController(characterVC, animated: true)
+        let isLiked = state?.favorites.contains(where: {(char: CharacterModel) -> Bool in
+            char.name == character.name
+        })
+        
+        let vc = UIHostingController(rootView: CharacterView(state: state!, model: character, isLiked: isLiked ?? false ))
+//        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: state ?? StateController())
+        
+        state?.addToRecent(name: character.name)
+        navigationController?.pushViewController(vc, animated: true)
         
 
     }

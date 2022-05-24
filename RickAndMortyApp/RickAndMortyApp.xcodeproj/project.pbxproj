@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB10DC2D283D46790027B280 /* CharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB10DC2C283D46790027B280 /* CharacterView.swift */; };
 		DB147EBD2820724800E0BEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB147EBC2820724800E0BEA2 /* AppDelegate.swift */; };
 		DB147EBF2820724800E0BEA2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB147EBE2820724800E0BEA2 /* SceneDelegate.swift */; };
 		DB147EC12820724800E0BEA2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB147EC02820724800E0BEA2 /* ViewController.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB10DC2C283D46790027B280 /* CharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterView.swift; sourceTree = "<group>"; };
 		DB147EB92820724800E0BEA2 /* RickAndMortyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMortyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB147EBC2820724800E0BEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB147EBE2820724800E0BEA2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				DB147ED92820837D00E0BEA2 /* CharacterInfoCellView.swift */,
 				DB32F51D283AC55A005902CB /* ImageScrollView.swift */,
+				DB10DC2C283D46790027B280 /* CharacterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				DB32F521283BAB6B005902CB /* StateController.swift in Sources */,
 				DB147EC12820724800E0BEA2 /* ViewController.swift in Sources */,
 				DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */,
+				DB10DC2D283D46790027B280 /* CharacterView.swift in Sources */,
 				DB147EBD2820724800E0BEA2 /* AppDelegate.swift in Sources */,
 				DB147EBF2820724800E0BEA2 /* SceneDelegate.swift in Sources */,
 			);

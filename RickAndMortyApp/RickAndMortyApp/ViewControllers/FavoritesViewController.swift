@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class FavoritesViewController: UIViewController {
     
@@ -114,9 +115,17 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let character = favorites[indexPath.row]
-        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: stateController)
+//        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: stateController)
         
-        navigationController?.pushViewController(characterVC, animated: true)
+        let isLiked = stateController.favorites.contains(where: {(char: CharacterModel) -> Bool in
+            char.name == character.name
+        })
+        
+        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: isLiked))
+        stateController.addToRecent(name: character.name)
+
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -211,25 +220,6 @@ final class CharacterCell: UITableViewCell{
         let ret = Line()
         return ret
     }()
-    
-    
-    
-    
-    //    override func draw(_ rect: CGRect) {
-    //      guard let context = UIGraphicsGetCurrentContext() else {
-    //        return
-    //      }
-    //
-    //      let y = bounds.maxY - 0.5
-    //      let minX = bounds.minX
-    //      let maxX = bounds.maxX
-    //
-    //      context.setStrokeColor(CGColor.init(red: 61/256, green: 62/256, blue: 64/256, alpha: 1))
-    //      context.setLineWidth(1.0)
-    //      context.move(to: CGPoint(x: minX, y: y))
-    //      context.addLine(to: CGPoint(x: maxX, y: y))
-    //      context.strokePath()
-    //    }
     
     
 }
