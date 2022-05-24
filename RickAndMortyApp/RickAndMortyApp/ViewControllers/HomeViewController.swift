@@ -12,6 +12,7 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
   
 
         setUp()
@@ -55,6 +56,7 @@ class HomeViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
 
     }
+    
     
     private lazy var homeImage: UIImageView = {
         
@@ -101,10 +103,30 @@ class HomeViewController: UIViewController {
             return
         }
         
-        navigationController?.pushViewController(GalleryHomeViewController(), animated: true)
+        let vc = GalleryHomeViewController()
+        vc.transitioningDelegate = self
+        present(vc, animated: true)
+
     }
   
+}
 
+extension HomeViewController: UIViewControllerTransitioningDelegate{
+  
+    
+    func animationController(forPresented presented: UIViewController,
+                                presenting: UIViewController,
+                                source: UIViewController)
+           -> UIViewControllerAnimatedTransitioning?
+       {
+           return AnimatorController(presentationImage: homeImage)
+       }
+    
+
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
 }
 
 
