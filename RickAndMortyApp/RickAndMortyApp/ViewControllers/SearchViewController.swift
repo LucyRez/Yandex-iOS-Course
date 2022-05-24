@@ -35,13 +35,13 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(searchBar)
         view.addSubview(viewForTable)
-        
+        view.backgroundColor = .background
+
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         viewForTable.translatesAutoresizingMaskIntoConstraints = false
@@ -70,15 +70,16 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = viewForTable.bounds
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .background
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        //tableView.bounds = tableView.frame.insetBy(dx: 16.0, dy: 0)
         
     }
     
     private let viewForTable: UIView = {
-        return UIView()
+        let ret = UIView()
+        ret.backgroundColor = .background
+        return ret
     }()
     
     private let tableView: UITableView = {
@@ -92,11 +93,12 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
     private lazy var searchBar: UISearchBar = {
         let ret = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 55))
         ret.showsCancelButton = false
-        ret.searchTextField.backgroundColor = .white
-        ret.layer.borderColor = CGColor.init(red: 61/256, green: 62/256, blue: 64/256, alpha: 1 )
+        ret.searchTextField.backgroundColor = .background
+        ret.layer.borderColor = UIColor.background.cgColor
         ret.layer.borderWidth = 2
         ret.layer.cornerRadius = 10
         ret.placeholder = "Search for character"
+        ret.backgroundColor = .background
         return ret
     }()
     
@@ -130,6 +132,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSectionView.identifier , for: indexPath) as? RecentSectionView else{
                 return UITableViewCell()
             }
+            cell.navigationController = navigationController!
+            cell.state = stateController
             cell.charactersToShow = stateController.recents
             return cell
             
@@ -155,9 +159,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         1
     }
     
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        46
-//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         isSearching ? 200 : 160
@@ -173,6 +174,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 final class RecentSectionView: UITableViewCell{
     
     var characters: [CharacterModel] = []
+    var navigationController: UINavigationController?
+    var state: StateController?
     
     var charactersToShow: [CharacterModel] {
         set{
@@ -196,7 +199,9 @@ final class RecentSectionView: UITableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        navigationController = nil
+        state = nil
+        contentView.backgroundColor = .background
         contentView.addSubview(collection)
         collection.delegate = self
         collection.dataSource = self
@@ -229,13 +234,16 @@ extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 1
-        cell.layer.borderColor = CGColor.init(red: 61/256, green: 62/256, blue: 64/256, alpha: 1)
+        cell.layer.borderColor = UIColor.main.cgColor
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let character = charactersToShow[indexPath.row]
-        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: StateController())
+        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: state ?? StateController())
+        
+        navigationController?.pushViewController(characterVC, animated: true)
+        
 
     }
 }
@@ -370,7 +378,7 @@ final class SearchSectionView: UITableViewCell{
         ret.layer.cornerRadius = 10
         ret.layer.masksToBounds = true
         ret.layer.borderWidth = 1
-        ret.layer.borderColor = CGColor.init(red: 61/256, green: 62/256, blue: 64/256, alpha: 1)
+        ret.layer.borderColor = UIColor.main.cgColor
         ret.contentMode = .scaleAspectFill
         return ret
     }()

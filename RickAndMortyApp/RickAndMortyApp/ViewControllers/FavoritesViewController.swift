@@ -24,7 +24,7 @@ final class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         setUp()
         
     }
@@ -32,6 +32,7 @@ final class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         favorites = stateController.favorites
+        view.backgroundColor = .background
         tableView.reloadData()
     }
     
@@ -58,7 +59,7 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .background
         tableView.separatorStyle = .none
     }
     
@@ -152,6 +153,7 @@ final class CharacterCell: UITableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = .background
         contentView.addSubview(icon)
         contentView.addSubview(nameLabel)
         contentView.addSubview(line)

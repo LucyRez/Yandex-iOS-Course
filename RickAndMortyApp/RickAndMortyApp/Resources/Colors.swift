@@ -11,4 +11,5 @@ import UIKit
 extension UIColor {
     static let main = UIColor(named: "main")!
     static let key = UIColor(named: "key")!
+    static let background = UIColor(named: "background")!
 }

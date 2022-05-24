@@ -34,7 +34,7 @@ final class CharacterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: true)
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .background
         model.isLiked = state.favorites.contains(where: {(character: CharacterModel) -> Bool in
             character.name == model.name
         })
@@ -98,10 +98,6 @@ final class CharacterViewController: UIViewController {
             gender.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
 
         ])
-         
-      
-
-      
         
     }
     

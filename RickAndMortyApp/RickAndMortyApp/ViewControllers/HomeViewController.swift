@@ -13,7 +13,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-  
 
         setUp()
 
@@ -29,7 +28,7 @@ class HomeViewController: UIViewController {
         view.addSubview(subtitle)
         view.addSubview(homeImage)
         homeImage.image = UIImage(named: "HomeImage")
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         
         view.subviews.forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +70,7 @@ class HomeViewController: UIViewController {
                  
         let ret = UILabel()
         let attributes: [NSAttributedString.Key : Any] = [.strokeColor: UIColor.main,
-                                                          .foregroundColor: UIColor.white,
+                                                          .foregroundColor: UIColor.background,
                                                           .strokeWidth: -1.0,
                                                           .font : UIFont(name: "SFUIDisplay-Black", size: 72) ?? UIFont.systemFont(ofSize: 72)
         ]

@@ -58,17 +58,6 @@ final class CharacterInfoCellView: UIView {
         valueLabel.text = model.value
     }
     
-//    private let stack: UIStackView = {
-//        let ret = UIStackView()
-//
-//        ret.axis = .vertical
-//        ret.alignment = .fill
-//        ret.distribution = .fillEqually
-//        ret.contentMode = .left
-//        ret.spacing = 0
-//
-//        return ret
-//    }()
     
     private let keyLabel: UILabel = {
         let ret = UILabel()

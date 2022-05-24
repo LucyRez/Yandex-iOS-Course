@@ -17,8 +17,9 @@ final class RootViewController: UITabBarController {
         if #available(iOS 13.0, *) {
             let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()
-            tabBarAppearance.backgroundColor = UIColor.white
+            tabBarAppearance.backgroundColor = .background
             UITabBar.appearance().standardAppearance = tabBarAppearance
+            UITabBar.appearance().tintColor = .main
 
             if #available(iOS 15.0, *) {
                 UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
@@ -36,7 +37,7 @@ final class RootViewController: UITabBarController {
 private extension RootViewController{
     func makeSearchViewController() -> UIViewController{
         let content = SearchViewController(state: appState)
-        content.tabBarItem = .init(title: "", image: UIImage(systemName: "magnifyingglass"), tag: 0)
+        content.tabBarItem = .init(title: "", image: UIImage(systemName: "magnifyingglass")?.withTintColor(.main), tag: 0)
         return content
     }
     
@@ -50,7 +51,7 @@ private extension RootViewController{
     func makeHomeViewController() -> UIViewController{
         let content = UINavigationController(rootViewController: HomeViewController())
         
-        content.tabBarItem = .init(title: "", image: UIImage(systemName: "house"), tag: 0)
+        content.tabBarItem = .init(title: "", image: UIImage(systemName: "house")?.withTintColor(.main), tag: 0)
         return content
     }
 }
