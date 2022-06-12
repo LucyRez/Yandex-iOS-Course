@@ -96,7 +96,6 @@ class StateController{
 }
 
 
-
 struct CharacterModel{
     let name: String
     let status: String
