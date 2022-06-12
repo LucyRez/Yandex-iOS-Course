@@ -28,6 +28,10 @@
 		DB7D6C8628299CA300A593FD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D6C8528299CA300A593FD /* SearchViewController.swift */; };
 		DB8181CA28562F7E002CBCC4 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181C928562F7D002CBCC4 /* Character.swift */; };
 		DB8181CC2856310C002CBCC4 /* APIResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181CB2856310C002CBCC4 /* APIResponseModel.swift */; };
+		DB8181CE28563547002CBCC4 /* APIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181CD28563547002CBCC4 /* APIResource.swift */; };
+		DB8181D0285637E6002CBCC4 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181CF285637E6002CBCC4 /* APIRequest.swift */; };
+		DB8181D228563CED002CBCC4 /* CharactersResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D128563CED002CBCC4 /* CharactersResource.swift */; };
+		DB8181D428563FC3002CBCC4 /* APIGenericRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */; };
 		DB8E2AC5283CF25E0001C743 /* AnimatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */; };
 		DB908FD72829547100F4923B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB908FD62829547100F4923B /* Colors.xcassets */; };
 		DB908FDA2829573000F4923B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB908FD92829573000F4923B /* Colors.swift */; };
@@ -57,6 +61,10 @@
 		DB7D6C8528299CA300A593FD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB8181C928562F7D002CBCC4 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		DB8181CB2856310C002CBCC4 /* APIResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseModel.swift; sourceTree = "<group>"; };
+		DB8181CD28563547002CBCC4 /* APIResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResource.swift; sourceTree = "<group>"; };
+		DB8181CF285637E6002CBCC4 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		DB8181D128563CED002CBCC4 /* CharactersResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResource.swift; sourceTree = "<group>"; };
+		DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIGenericRequest.swift; sourceTree = "<group>"; };
 		DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorController.swift; sourceTree = "<group>"; };
 		DB908FD62829547100F4923B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		DB908FD92829573000F4923B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -166,6 +174,10 @@
 		DB8181C728562F24002CBCC4 /* Networkig */ = {
 			isa = PBXGroup;
 			children = (
+				DB8181CD28563547002CBCC4 /* APIResource.swift */,
+				DB8181CF285637E6002CBCC4 /* APIRequest.swift */,
+				DB8181D128563CED002CBCC4 /* CharactersResource.swift */,
+				DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */,
 			);
 			path = Networkig;
 			sourceTree = "<group>";
@@ -272,8 +284,11 @@
 				DB147ED5282073E700E0BEA2 /* CharacterViewController.swift in Sources */,
 				DB8E2AC5283CF25E0001C743 /* AnimatorController.swift in Sources */,
 				DB7D6C8628299CA300A593FD /* SearchViewController.swift in Sources */,
+				DB8181CE28563547002CBCC4 /* APIResource.swift in Sources */,
 				DB315367283A5D4000C6C7AB /* RootViewController.swift in Sources */,
+				DB8181D0285637E6002CBCC4 /* APIRequest.swift in Sources */,
 				DBD53605282B07DE004823E4 /* FavoritesViewController.swift in Sources */,
+				DB8181D228563CED002CBCC4 /* CharactersResource.swift in Sources */,
 				DB908FDA2829573000F4923B /* Colors.swift in Sources */,
 				DB315369283A5DA900C6C7AB /* HomeViewController.swift in Sources */,
 				DB8181CC2856310C002CBCC4 /* APIResponseModel.swift in Sources */,
@@ -282,6 +297,7 @@
 				DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */,
 				DB10DC2D283D46790027B280 /* CharacterView.swift in Sources */,
 				DB6711BA284FB65B001B0C9E /* Storage.swift in Sources */,
+				DB8181D428563FC3002CBCC4 /* APIGenericRequest.swift in Sources */,
 				DB147EBD2820724800E0BEA2 /* AppDelegate.swift in Sources */,
 				DB8181CA28562F7E002CBCC4 /* Character.swift in Sources */,
 				DB147EBF2820724800E0BEA2 /* SceneDelegate.swift in Sources */,

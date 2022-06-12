@@ -14,7 +14,7 @@ struct Character: Codable{
     let status: String
     let species: String
     let gender: String
-    let imageURL: String
+    let imageURL: String?
     
     enum CodingKeys: String, CodingKey{
         case id, name, status, species, gender

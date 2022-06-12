@@ -7,14 +7,21 @@
 
 import Foundation
 
+
+
+struct Wrapper<T: Codable>: Codable {
+    let info: InfoModel
+    let results: [T]
+}
+
 struct APIResponseModel: Codable{
     let info: InfoModel
-    let results: [Character]
+    let results: [Character]?
 }
 
 struct InfoModel: Codable{
     let count: Int
     let pages: Int
-    let next: String
+    let next: String?
     
 }
