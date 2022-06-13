@@ -8,22 +8,10 @@
 import Foundation
 
 protocol Storage{
-    func save<T: Codable>(_ data: T, forKey key: String)
-    func get<T: Codable>(forKey key: String) -> T?
+    associatedtype DataModel: Codable
+
+    func save<DataModel: Codable>(_ data: DataModel, forKey key: String) async throws
+    func get<DataModel: Codable>(forKey key: String) async -> DataModel?
 }
 
-enum Tab{
-    case main
-    case favourites
-}
 
-enum Category{
-    case favourites
-    case searched
-}
-
-protocol CharacterStorage{
-    func saveCharacters(_ characters: [Character], for category: Category) async throws
-    func getCharacters(from category: Category) async -> [Character]
-  
-}

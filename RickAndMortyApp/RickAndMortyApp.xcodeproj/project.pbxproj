@@ -34,6 +34,7 @@
 		DB8181D428563FC3002CBCC4 /* APIGenericRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */; };
 		DB8181D628566A31002CBCC4 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D528566A30002CBCC4 /* ImageRequest.swift */; };
 		DB8181DD28577C44002CBCC4 /* NetworkingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181DC28577C43002CBCC4 /* NetworkingController.swift */; };
+		DB8181DF2857E40F002CBCC4 /* CharacterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181DE2857E40E002CBCC4 /* CharacterStorage.swift */; };
 		DB8E2AC5283CF25E0001C743 /* AnimatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */; };
 		DB908FD72829547100F4923B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB908FD62829547100F4923B /* Colors.xcassets */; };
 		DB908FDA2829573000F4923B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB908FD92829573000F4923B /* Colors.swift */; };
@@ -69,6 +70,7 @@
 		DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIGenericRequest.swift; sourceTree = "<group>"; };
 		DB8181D528566A30002CBCC4 /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		DB8181DC28577C43002CBCC4 /* NetworkingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingController.swift; sourceTree = "<group>"; };
+		DB8181DE2857E40E002CBCC4 /* CharacterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterStorage.swift; sourceTree = "<group>"; };
 		DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorController.swift; sourceTree = "<group>"; };
 		DB908FD62829547100F4923B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		DB908FD92829573000F4923B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				DB6711B9284FB65B001B0C9E /* Storage.swift */,
+				DB8181DE2857E40E002CBCC4 /* CharacterStorage.swift */,
 			);
 			path = DataStorage;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */,
 				DB10DC2D283D46790027B280 /* CharacterView.swift in Sources */,
 				DB6711BA284FB65B001B0C9E /* Storage.swift in Sources */,
+				DB8181DF2857E40F002CBCC4 /* CharacterStorage.swift in Sources */,
 				DB8181D428563FC3002CBCC4 /* APIGenericRequest.swift in Sources */,
 				DB147EBD2820724800E0BEA2 /* AppDelegate.swift in Sources */,
 				DB8181CA28562F7E002CBCC4 /* Character.swift in Sources */,
