@@ -32,6 +32,7 @@
 		DB8181D0285637E6002CBCC4 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181CF285637E6002CBCC4 /* APIRequest.swift */; };
 		DB8181D228563CED002CBCC4 /* CharactersResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D128563CED002CBCC4 /* CharactersResource.swift */; };
 		DB8181D428563FC3002CBCC4 /* APIGenericRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */; };
+		DB8181D628566A31002CBCC4 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D528566A30002CBCC4 /* ImageRequest.swift */; };
 		DB8E2AC5283CF25E0001C743 /* AnimatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */; };
 		DB908FD72829547100F4923B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB908FD62829547100F4923B /* Colors.xcassets */; };
 		DB908FDA2829573000F4923B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB908FD92829573000F4923B /* Colors.swift */; };
@@ -65,6 +66,7 @@
 		DB8181CF285637E6002CBCC4 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		DB8181D128563CED002CBCC4 /* CharactersResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResource.swift; sourceTree = "<group>"; };
 		DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIGenericRequest.swift; sourceTree = "<group>"; };
+		DB8181D528566A30002CBCC4 /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorController.swift; sourceTree = "<group>"; };
 		DB908FD62829547100F4923B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		DB908FD92829573000F4923B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -103,7 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				DB8181C828562F65002CBCC4 /* Models */,
-				DB8181C728562F24002CBCC4 /* Networkig */,
+				DB8181C728562F24002CBCC4 /* Networking */,
 				DB6711BB284FC36B001B0C9E /* DataStorage */,
 				DB32F51F283BAB43005902CB /* Controllers */,
 				DB315365283A5D2400C6C7AB /* Fonts */,
@@ -159,7 +161,6 @@
 			children = (
 				DB32F520283BAB6A005902CB /* StateController.swift */,
 				DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */,
-				DB6711B9284FB65B001B0C9E /* Storage.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -167,19 +168,21 @@
 		DB6711BB284FC36B001B0C9E /* DataStorage */ = {
 			isa = PBXGroup;
 			children = (
+				DB6711B9284FB65B001B0C9E /* Storage.swift */,
 			);
 			path = DataStorage;
 			sourceTree = "<group>";
 		};
-		DB8181C728562F24002CBCC4 /* Networkig */ = {
+		DB8181C728562F24002CBCC4 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				DB8181CD28563547002CBCC4 /* APIResource.swift */,
 				DB8181CF285637E6002CBCC4 /* APIRequest.swift */,
 				DB8181D128563CED002CBCC4 /* CharactersResource.swift */,
 				DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */,
+				DB8181D528566A30002CBCC4 /* ImageRequest.swift */,
 			);
-			path = Networkig;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		DB8181C828562F65002CBCC4 /* Models */ = {
@@ -281,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB32F51C283AB5B8005902CB /* GalleryHomeViewController.swift in Sources */,
+				DB8181D628566A31002CBCC4 /* ImageRequest.swift in Sources */,
 				DB147ED5282073E700E0BEA2 /* CharacterViewController.swift in Sources */,
 				DB8E2AC5283CF25E0001C743 /* AnimatorController.swift in Sources */,
 				DB7D6C8628299CA300A593FD /* SearchViewController.swift in Sources */,

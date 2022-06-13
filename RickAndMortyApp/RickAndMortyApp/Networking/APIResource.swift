@@ -8,21 +8,17 @@
 import Foundation
 
 
-struct Resource<T> {
-    let url: URL
-}
-
 protocol APIResource{
     associatedtype ModelType: Codable
-    var methodPath: String {get}
     var filter: String? {get}
     var page: Int? {get}
 }
 
 extension APIResource{
     var url: URL {
-        var components = URLComponents(string: "https://rickandmortyapi.com/api")!
-        components.path = methodPath
+        var components = URLComponents(string: "https://rickandmortyapi.com/api/character")!
+        
+        components.queryItems = []
         
         if let filter = filter{
             components.queryItems?.append(URLQueryItem(name: "name", value: filter))

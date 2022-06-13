@@ -17,13 +17,13 @@ class APIGenericRequest<Resource: APIResource>{
 
 extension APIGenericRequest: APIRequest{
 
-    func decode(_ data: Data) -> [Resource.ModelType]? {
+    func decode(_ data: Data) -> APIResponseModel? {
         let decoder = JSONDecoder()
-        let decodedModel = try? decoder.decode(Wrapper<Resource.ModelType>.self, from: data)
-        return decodedModel?.results
+        let decodedModel = try? decoder.decode(APIResponseModel.self, from: data)
+        return decodedModel
     }
     
-    func execute() async throws -> Array<Resource.ModelType>? {
-        try await load(url: resource.url)
+    func execute() async throws -> APIResponseModel? {
+        try await load(url: resource.url)!
     }
 }

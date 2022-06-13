@@ -8,12 +8,6 @@
 import Foundation
 
 
-
-struct Wrapper<T: Codable>: Codable {
-    let info: InfoModel
-    let results: [T]
-}
-
 struct APIResponseModel: Codable{
     let info: InfoModel
     let results: [Character]?

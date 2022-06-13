@@ -8,12 +8,13 @@
 import UIKit
 import SwiftUI
 
-final class SearchViewController: UIViewController, UISearchBarDelegate {
+final class SearchViewController: UIViewController {
     
+    var request: APIGenericRequest<CharactersResource>?
     var stateController: StateController
     
     var isSearching: Bool
-    var filteredCharacters: [CharacterModel]
+    var filteredCharacters: [Character] = []
     
     var allCharacters: [CharacterModel] {
         return stateController.allCharacters
@@ -26,7 +27,6 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
     init(state: StateController){
         stateController = state
         isSearching = false
-        filteredCharacters = stateController.allCharacters
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,7 +42,7 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
         view.addSubview(searchBar)
         view.addSubview(viewForTable)
         view.backgroundColor = .background
-
+        
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         viewForTable.translatesAutoresizingMaskIntoConstraints = false
@@ -103,24 +103,54 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
         return ret
     }()
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredCharacters = searchText.isEmpty ? allCharacters : allCharacters.filter{(item: CharacterModel) -> Bool in
-            return item.name.range(of: searchText, options: .caseInsensitive) != nil
-        }
-        
-        if(searchText.isEmpty){
-            isSearching = false
-        }else{
-            isSearching = true
-        }
-        
-        tableView.reloadData()
-        
-    }
-    
     
 }
 
+
+extension SearchViewController: UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        filteredCharacters = searchText.isEmpty ? allCharacters : allCharacters.filter{(item: CharacterModel) -> Bool in
+//            return item.name.range(of: searchText, options: .caseInsensitive) != nil
+//        }
+        
+        if !searchText.trimmingCharacters(in: [" "]).isEmpty {
+            Task{
+                await fetchSearchedCharacters(filter: searchText)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+            }
+            isSearching = false
+
+        }else{
+            isSearching = false
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+        
+        
+    }
+    
+    private func fetchSearchedCharacters(filter: String) async{
+        guard !isSearching else { return }
+        isSearching = true
+        let resource = CharactersResource()
+        resource.filter = filter
+        let request = APIGenericRequest(resource: resource)
+        self.request = request
+        
+        do{
+            filteredCharacters = try await request.execute()?.results as! [Character]
+        }catch{
+            print(error)
+        }
+                
+    }
+    
+}
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -144,7 +174,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
             cell.name = filteredCharacters[indexPath.row].name
             cell.species = filteredCharacters[indexPath.row].species
-            cell.iconURL = filteredCharacters[indexPath.row].imageURL
+            let stringUrl: String = filteredCharacters[indexPath.row].imageURL!
+            cell.iconURL = URL(string: stringUrl)!
             return cell
         }
     }
@@ -155,11 +186,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             char.name == character.name
         })
         
-        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: isLiked ))
-//        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: stateController)
+        //let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: isLiked ))
         
         stateController.addToRecent(name: character.name)
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -176,7 +206,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
 }
-
 
 final class RecentSectionView: UITableViewCell{
     
@@ -253,12 +282,12 @@ extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         })
         
         let vc = UIHostingController(rootView: CharacterView(state: state!, model: character, isLiked: isLiked ?? false ))
-//        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: state ?? StateController())
+        
         
         state?.addToRecent(name: character.name)
         navigationController?.pushViewController(vc, animated: true)
         
-
+        
     }
 }
 
