@@ -11,15 +11,6 @@ class CharactersResource: APIResource{
     typealias ModelType = APIResponseModel
     
     var id: Int?
-
-//    var methodPath: String{
-//        guard let id = id else {
-//            return "character"
-//        }
-//        
-//        return "character/\(id)"
-//    }
-    
     var filter: String?
     var page: Int?
 }

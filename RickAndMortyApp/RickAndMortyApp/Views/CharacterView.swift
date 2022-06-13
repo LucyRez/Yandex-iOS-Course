@@ -9,19 +9,24 @@ import SwiftUI
 
 struct CharacterView: View {
     
+    private var request: ImageRequest {
+        ImageRequest(url: URL(string: model.imageURL!)!)
+    }
     var state: StateController
     var model : Character
+    
     @State var isLiked: Bool = false
+    @State var characterImage: UIImage = UIImage()
     
     var body: some View {
         ScrollView{
             VStack(alignment: .center){
-                AsyncImage(url: URL(string: model.imageURL!)!).frame(width: 300, height: 300)
+                Image(uiImage: characterImage)
+                    .frame(width: 300, height: 300)
                     .cornerRadius(10)
                     .overlay(RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(uiColor: .main), lineWidth: 1))
+                    .stroke(Color(uiColor: .main), lineWidth: 1))
                     .padding(.top, 20)
-                
                 
                 HStack{
                     Text(model.name)
@@ -70,7 +75,19 @@ struct CharacterView: View {
                 
                 
             }
-        }        
+        }
+        .task{
+            await getAsyncImage()
+        }
+    }
+    
+    func getAsyncImage() async{
+        do{
+            characterImage = try await (request.execute() ?? UIImage())
+        }
+        catch{
+            print(error) // TODO: Log error
+        }
     }
 }
 
@@ -96,7 +113,6 @@ struct CellView: View {
             
             
         }
-        
         
     }
 }

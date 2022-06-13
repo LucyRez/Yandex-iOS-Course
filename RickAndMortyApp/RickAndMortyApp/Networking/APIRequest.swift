@@ -8,12 +8,13 @@
 import Foundation
 
 protocol APIRequest: AnyObject{
-    func decode(_ data: Data) -> APIResponseModel?
-    func execute() async throws -> APIResponseModel?
+    associatedtype ModelType
+    func decode(_ data: Data) -> ModelType?
+    func execute() async throws -> ModelType?
 }
 
 extension APIRequest{
-    func load(url: URL) async throws -> APIResponseModel? {
+    func load(url: URL) async throws -> ModelType? {
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let response = response as? HTTPURLResponse else{

@@ -17,12 +17,12 @@ class ImageRequest{
     }
 }
 
-//extension ImageRequest: APIRequest{
-//    func decode(_ data: Data) -> UIImage? {
-//        return UIImage(data: data)
-//    }
-//    
-//    func execute() async throws -> UIImage? {
-//        try await load(url: url)
-//    }
-//}
+extension ImageRequest: APIRequest{
+    func decode(_ data: Data) -> UIImage? {
+        return UIImage(data: data)
+    }
+    
+    func execute() async throws -> UIImage? {
+        try await load(url: url)
+    }
+}

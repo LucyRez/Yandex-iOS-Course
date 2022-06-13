@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class NetworkingController{
     private var request: APIGenericRequest<CharactersResource>?
@@ -50,6 +51,16 @@ final class NetworkingController{
             print(error)
         }
         
+    }
+    
+    static func getAsyncImage(imageUrl: URL) async -> UIImage? {
+        let request = ImageRequest(url: imageUrl)
+        do{
+            return try await request.execute()
+        }catch{
+            print(error) // TODO: Log error
+            return nil
+        }
     }
     
     

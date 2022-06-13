@@ -140,7 +140,6 @@ extension SearchViewController: UISearchBarDelegate{
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
         }
     }
     
@@ -356,13 +355,12 @@ final class CharacterIconCell: UICollectionViewCell{
 
 final class SearchSectionView: UITableViewCell{
     static let identifier = "SearchSectionView"
-    
     var iconURL: URL{
         set{
             icon.kf.setImage(with: newValue)
         }
         get{
-            return URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")!
+           return URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")!
         }
     }
     
@@ -427,7 +425,9 @@ final class SearchSectionView: UITableViewCell{
     }
     
     private func updateInfo(){
+        
         icon.kf.setImage(with: iconURL)
+        
         nameLabel.text = name
         speciesLabel.text = species
         

@@ -98,7 +98,7 @@ class HomeViewController: UIViewController {
     }()
 
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        guard let tappedImage = tapGestureRecognizer.view as? UIImageView else {
+        guard (tapGestureRecognizer.view as? UIImageView) != nil else {
             return
         }
         
