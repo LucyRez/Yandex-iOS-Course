@@ -10,13 +10,13 @@ import SwiftUI
 struct CharacterView: View {
     
     var state: StateController
-    var model : CharacterModel
+    var model : Character
     @State var isLiked: Bool = false
     
     var body: some View {
         ScrollView{
             VStack(alignment: .center){
-                AsyncImage(url: model.imageURL).frame(width: 300, height: 300)
+                AsyncImage(url: URL(string: model.imageURL!)!).frame(width: 300, height: 300)
                     .cornerRadius(10)
                     .overlay(RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color(uiColor: .main), lineWidth: 1))

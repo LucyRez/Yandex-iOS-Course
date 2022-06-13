@@ -116,16 +116,16 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let character = favorites[indexPath.row]
 //        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: stateController)
-        
-        let isLiked = stateController.favorites.contains(where: {(char: CharacterModel) -> Bool in
-            char.name == character.name
-        })
-        
-        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: isLiked))
-        stateController.addToRecent(name: character.name)
-
-        
-        navigationController?.pushViewController(vc, animated: true)
+//        
+//        let isLiked = stateController.favorites.contains(where: {(char: CharacterModel) -> Bool in
+//            char.name == character.name
+//        })
+//        
+//        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: isLiked))
+//        stateController.addToRecent(name: character.name)
+//
+//        
+//        navigationController?.pushViewController(vc, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

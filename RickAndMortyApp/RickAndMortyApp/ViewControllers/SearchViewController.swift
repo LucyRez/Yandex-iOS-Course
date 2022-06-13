@@ -10,19 +10,16 @@ import SwiftUI
 
 final class SearchViewController: UIViewController {
     
-    var request: APIGenericRequest<CharactersResource>?
     var stateController: StateController
+    var networkingController = NetworkingController()
     
     var isSearching: Bool
     var filteredCharacters: [Character] = []
     
-    var allCharacters: [CharacterModel] {
-        return stateController.allCharacters
-    }
-    
-    var recentCharacters: [CharacterModel]{
-        return stateController.recents
-    }
+    //
+    //    var recentCharacters: [Character]{
+    //        return stateController.recents
+    //    }
     
     init(state: StateController){
         stateController = state
@@ -36,29 +33,19 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         searchBar.delegate = self
+        
         tableView.delegate = self
         tableView.dataSource = self
+        
         view.addSubview(searchBar)
         view.addSubview(viewForTable)
-        view.backgroundColor = .background
-        
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        viewForTable.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            viewForTable.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            viewForTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            viewForTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            viewForTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
-        
         viewForTable.addSubview(tableView)
         
+        setUpConstraints()
+        
+        view.backgroundColor = .background
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +64,22 @@ final class SearchViewController: UIViewController {
         
     }
     
+    private func setUpConstraints(){
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        viewForTable.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            viewForTable.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
+            viewForTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            viewForTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            viewForTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+        
+    }
+    
     private let viewForTable: UIView = {
         let ret = UIView()
         ret.backgroundColor = .background
@@ -87,6 +90,7 @@ final class SearchViewController: UIViewController {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(RecentSectionView.self, forCellReuseIdentifier: RecentSectionView.identifier)
         table.register(SearchSectionView.self, forCellReuseIdentifier: SearchSectionView.identifier)
+        table.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 1))
         return table
     }()
     
@@ -109,45 +113,35 @@ final class SearchViewController: UIViewController {
 
 extension SearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        filteredCharacters = searchText.isEmpty ? allCharacters : allCharacters.filter{(item: CharacterModel) -> Bool in
-//            return item.name.range(of: searchText, options: .caseInsensitive) != nil
-//        }
         
         if !searchText.trimmingCharacters(in: [" "]).isEmpty {
-            Task{
-                await fetchSearchedCharacters(filter: searchText)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-                
-            }
-            isSearching = false
+            fetchSearchedCharacters(searchText: searchText)
+            self.isSearching = false
 
         }else{
             isSearching = false
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-        
-        
-        
     }
     
-    private func fetchSearchedCharacters(filter: String) async{
-        guard !isSearching else { return }
-        isSearching = true
-        let resource = CharactersResource()
-        resource.filter = filter
-        let request = APIGenericRequest(resource: resource)
-        self.request = request
-        
-        do{
-            filteredCharacters = try await request.execute()?.results as! [Character]
-        }catch{
-            print(error)
+    private func fetchSearchedCharacters(searchText: String){
+        Task{
+            guard !isSearching else { return }
+            isSearching = true
+            
+            await networkingController.fetchSearchedCharacters(searchText: searchText){ [weak self] filteredResult in
+                self?.filteredCharacters = []
+                self?.filteredCharacters.append(contentsOf: filteredResult ?? [])
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
         }
-                
     }
     
 }
@@ -163,7 +157,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSectionView.identifier , for: indexPath) as? RecentSectionView else{
                 return UITableViewCell()
             }
-            cell.navigationController = navigationController!
+            //cell.navigationController = navigationController!
             cell.state = stateController
             cell.charactersToShow = stateController.recents
             return cell
@@ -182,14 +176,14 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let character = filteredCharacters[indexPath.row]
-        let isLiked = stateController.favorites.contains(where: {(char: CharacterModel) -> Bool in
-            char.name == character.name
-        })
+        //        let isLiked = stateController.favorites.contains(where: {(char: CharacterModel) -> Bool in
+        //            char.name == character.name
+        //        })
         
-        //let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: isLiked ))
+        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: false))
         
-        stateController.addToRecent(name: character.name)
-        //navigationController?.pushViewController(vc, animated: true)
+        //stateController.addToRecent(name: character.name)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -202,8 +196,31 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return isSearching ? "" : "Recent"
+        return isSearching ? nil : "Recent"
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return isSearching ? 1 : 20
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        let tableViewContentSizeHeight = tableView.contentSize.height
+        let scrollViewHeight = scrollView.frame.size.height
+                
+        if position > (tableViewContentSizeHeight - 100 - scrollViewHeight) {
+            Task{
+                await networkingController.fetchSearchedNextPage(){ [weak self] filteredResult in
+                    self?.filteredCharacters.append(contentsOf: filteredResult ?? [])
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+            }
+        }
+    }
+    
     
 }
 
@@ -277,15 +294,15 @@ extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let character = charactersToShow[indexPath.row]
         
-        let isLiked = state?.favorites.contains(where: {(char: CharacterModel) -> Bool in
-            char.name == character.name
-        })
+        //        let isLiked = state?.favorites.contains(where: {(char: CharacterModel) -> Bool in
+        //            char.name == character.name
+        //        })
         
-        let vc = UIHostingController(rootView: CharacterView(state: state!, model: character, isLiked: isLiked ?? false ))
-        
-        
-        state?.addToRecent(name: character.name)
-        navigationController?.pushViewController(vc, animated: true)
+        //        let vc = UIHostingController(rootView: CharacterView(state: state!, model: character, isLiked: isLiked ?? false ))
+        //
+        //
+        //        state?.addToRecent(name: character.name)
+        //        navigationController?.pushViewController(vc, animated: true)
         
         
     }

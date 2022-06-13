@@ -33,6 +33,8 @@
 		DB8181D228563CED002CBCC4 /* CharactersResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D128563CED002CBCC4 /* CharactersResource.swift */; };
 		DB8181D428563FC3002CBCC4 /* APIGenericRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */; };
 		DB8181D628566A31002CBCC4 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181D528566A30002CBCC4 /* ImageRequest.swift */; };
+		DB8181DB285751C0002CBCC4 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181DA285751BF002CBCC4 /* SearchResultsViewController.swift */; };
+		DB8181DD28577C44002CBCC4 /* NetworkingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181DC28577C43002CBCC4 /* NetworkingController.swift */; };
 		DB8E2AC5283CF25E0001C743 /* AnimatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */; };
 		DB908FD72829547100F4923B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB908FD62829547100F4923B /* Colors.xcassets */; };
 		DB908FDA2829573000F4923B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB908FD92829573000F4923B /* Colors.swift */; };
@@ -67,6 +69,8 @@
 		DB8181D128563CED002CBCC4 /* CharactersResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResource.swift; sourceTree = "<group>"; };
 		DB8181D328563FC3002CBCC4 /* APIGenericRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIGenericRequest.swift; sourceTree = "<group>"; };
 		DB8181D528566A30002CBCC4 /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
+		DB8181DA285751BF002CBCC4 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		DB8181DC28577C43002CBCC4 /* NetworkingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingController.swift; sourceTree = "<group>"; };
 		DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorController.swift; sourceTree = "<group>"; };
 		DB908FD62829547100F4923B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		DB908FD92829573000F4923B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 				DB315366283A5D4000C6C7AB /* RootViewController.swift */,
 				DB315368283A5DA900C6C7AB /* HomeViewController.swift */,
 				DB32F51B283AB5B7005902CB /* GalleryHomeViewController.swift */,
+				DB8181DA285751BF002CBCC4 /* SearchResultsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 			children = (
 				DB32F520283BAB6A005902CB /* StateController.swift */,
 				DB8E2AC4283CF25E0001C743 /* AnimatorController.swift */,
+				DB8181DC28577C43002CBCC4 /* NetworkingController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -292,6 +298,7 @@
 				DB315367283A5D4000C6C7AB /* RootViewController.swift in Sources */,
 				DB8181D0285637E6002CBCC4 /* APIRequest.swift in Sources */,
 				DBD53605282B07DE004823E4 /* FavoritesViewController.swift in Sources */,
+				DB8181DD28577C44002CBCC4 /* NetworkingController.swift in Sources */,
 				DB8181D228563CED002CBCC4 /* CharactersResource.swift in Sources */,
 				DB908FDA2829573000F4923B /* Colors.swift in Sources */,
 				DB315369283A5DA900C6C7AB /* HomeViewController.swift in Sources */,
@@ -301,6 +308,7 @@
 				DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */,
 				DB10DC2D283D46790027B280 /* CharacterView.swift in Sources */,
 				DB6711BA284FB65B001B0C9E /* Storage.swift in Sources */,
+				DB8181DB285751C0002CBCC4 /* SearchResultsViewController.swift in Sources */,
 				DB8181D428563FC3002CBCC4 /* APIGenericRequest.swift in Sources */,
 				DB147EBD2820724800E0BEA2 /* AppDelegate.swift in Sources */,
 				DB8181CA28562F7E002CBCC4 /* Character.swift in Sources */,
