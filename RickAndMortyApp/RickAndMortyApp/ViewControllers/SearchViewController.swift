@@ -12,12 +12,11 @@ final class SearchViewController: UIViewController {
     
     var stateController: StateController
     var networkingController = NetworkingController()
+    var recents: [Character] = []
+    var favorites: [Character] = []
     
     var isSearching: Bool
     var filteredCharacters: [Character] = []
-    
-    var recents: [Character] = []
-    var favorites: [Character] = []
     
     init(state: StateController){
         stateController = state
@@ -33,7 +32,6 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         searchBar.delegate = self
-        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -49,6 +47,7 @@ final class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         Task{
             recents = await stateController.getSearchedCharacters()
             favorites = await stateController.getFavCharacters()
@@ -58,7 +57,6 @@ final class SearchViewController: UIViewController {
             }
         }
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -74,7 +72,7 @@ final class SearchViewController: UIViewController {
         viewForTable.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             viewForTable.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
@@ -82,23 +80,21 @@ final class SearchViewController: UIViewController {
             viewForTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             viewForTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
-        
     }
     
-    private let viewForTable: UIView = {
+    private lazy var viewForTable: UIView = {
         let ret = UIView()
         ret.backgroundColor = .background
         return ret
     }()
     
-    private let tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(RecentSectionView.self, forCellReuseIdentifier: RecentSectionView.identifier)
         table.register(SearchSectionView.self, forCellReuseIdentifier: SearchSectionView.identifier)
         table.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 1))
         return table
     }()
-    
     
     private lazy var searchBar: UISearchBar = {
         let ret = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 55))
@@ -111,18 +107,15 @@ final class SearchViewController: UIViewController {
         ret.backgroundColor = .background
         return ret
     }()
-    
-    
 }
 
 
 extension SearchViewController: UISearchBarDelegate{
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         if !searchText.trimmingCharacters(in: [" "]).isEmpty {
             fetchSearchedCharacters(searchText: searchText)
             self.isSearching = false
-
         }else{
             isSearching = false
             
@@ -172,6 +165,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchSectionView.identifier , for: indexPath) as? SearchSectionView else{
                 return UITableViewCell()
             }
+            
             cell.name = filteredCharacters[indexPath.row].name
             cell.species = filteredCharacters[indexPath.row].species
             let stringUrl: String = filteredCharacters[indexPath.row].imageURL!
@@ -198,7 +192,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
-    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         isSearching ? 200 : 160
@@ -229,12 +222,12 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
         }
     }
-    
-    
 }
 
 final class RecentSectionView: UITableViewCell{
     
+    static let identifier = "RecentSectionView"
+
     var characters: [Character] = []
     var favorites: [Character]?
     var navigationController: UINavigationController?
@@ -250,8 +243,27 @@ final class RecentSectionView: UITableViewCell{
         }
     }
     
-    static let identifier = "RecentSectionView"
-    private let collection: UICollectionView = {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        collection.delegate = self
+        collection.dataSource = self
+        
+        contentView.addSubview(collection)
+        contentView.backgroundColor = .background
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        collection.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0))
+        collection.showsHorizontalScrollIndicator = false
+    }
+    
+    private lazy var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 120, height: 160)
@@ -260,26 +272,6 @@ final class RecentSectionView: UITableViewCell{
         return ret
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        navigationController = nil
-        state = nil
-        contentView.backgroundColor = .background
-        contentView.addSubview(collection)
-        collection.delegate = self
-        collection.dataSource = self
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        collection.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0))
-        collection.showsHorizontalScrollIndicator = false
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSource{
@@ -292,12 +284,8 @@ extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSourc
             return UICollectionViewCell()
         }
         
-        
         cell.iconURL = URL(string: charactersToShow[indexPath.row].imageURL!)!
         
-        cell.layer.cornerRadius = 10
-        cell.layer.borderWidth = 1
-        cell.layer.borderColor = UIColor.main.cgColor
         return cell
     }
     
@@ -333,7 +321,17 @@ final class CharacterIconCell: UICollectionViewCell{
     override init(frame: CGRect){
         super.init(frame: frame)
         addSubview(icon)
-        updateInfo()
+        setUp()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setUp(){
+        layer.cornerRadius = 10
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.main.cgColor
         
         icon.translatesAutoresizingMaskIntoConstraints = false
         
@@ -343,11 +341,6 @@ final class CharacterIconCell: UICollectionViewCell{
         ])
     }
     
-    private func updateInfo(){
-        icon.kf.setImage(with: iconURL)
-    }
-    
-    
     private lazy var icon: UIImageView = {
         let ret = UIImageView()
         ret.layer.cornerRadius = 10
@@ -356,16 +349,11 @@ final class CharacterIconCell: UICollectionViewCell{
         return ret
     }()
     
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
 }
 
 final class SearchSectionView: UITableViewCell{
     static let identifier = "SearchSectionView"
+    
     var iconURL: URL{
         set{
             icon.kf.setImage(with: newValue)
@@ -408,10 +396,15 @@ final class SearchSectionView: UITableViewCell{
         contentView.addSubview(labelsPlaceholder)
         labelsPlaceholder.addArrangedSubview(nameLabel)
         labelsPlaceholder.addArrangedSubview(speciesLabel)
-        //contentView.addSubview(nameLabel)
         contentView.addSubview(line)
-        updateInfo()
-        
+        setUpContsraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setUpContsraints(){
         contentView.subviews.forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -430,20 +423,7 @@ final class SearchSectionView: UITableViewCell{
             line.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func updateInfo(){
-        
-        icon.kf.setImage(with: iconURL)
-        
-        nameLabel.text = name
-        speciesLabel.text = species
-        
-    }
-    
+
     private lazy var icon: UIImageView = {
         let ret = UIImageView()
         ret.layer.cornerRadius = 10

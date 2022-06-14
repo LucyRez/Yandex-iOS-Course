@@ -77,9 +77,10 @@ struct CharacterView: View {
                 CellView(key: "Gender:", value: model.gender)
                     .padding(.horizontal, 16)
                 
-                
             }
         }
+        .navigationBarTitle("Character")
+        .navigationBarTitleDisplayMode(.inline)
         .task{
             await getAsyncImage()
         }

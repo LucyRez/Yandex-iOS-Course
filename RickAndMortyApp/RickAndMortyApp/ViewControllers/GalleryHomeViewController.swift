@@ -8,7 +8,6 @@
 import UIKit
 
 class GalleryHomeViewController: UIViewController {
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +20,12 @@ class GalleryHomeViewController: UIViewController {
         let image = UIImage(named: "HomeImage") ?? UIImage()
         self.imageScrollView.setImage(image: image)
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
-        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
 
-        
     }
     
     func setUp(){
@@ -40,12 +42,6 @@ class GalleryHomeViewController: UIViewController {
             imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
        
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-
     }
     
     private lazy var dismissButton: UIButton = {

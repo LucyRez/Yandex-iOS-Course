@@ -13,7 +13,13 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        view.addSubview(mainTitle)
+        view.addSubview(subtitle)
+        view.addSubview(homeImage)
+        
+        homeImage.image = UIImage(named: "HomeImage")
+        view.backgroundColor = .background
+        
         setUp()
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
@@ -23,19 +29,19 @@ class HomeViewController: UIViewController {
                 
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     private func setUp(){
-        view.addSubview(mainTitle)
-        view.addSubview(subtitle)
-        view.addSubview(homeImage)
-        homeImage.image = UIImage(named: "HomeImage")
-        view.backgroundColor = .background
         
         view.subviews.forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
-            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 36),
             mainTitle.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             mainTitle.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             subtitle.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 24),
@@ -47,15 +53,7 @@ class HomeViewController: UIViewController {
             homeImage.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 45),
             
         ])
-        
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-
-    }
-    
     
     private lazy var homeImage: UIImageView = {
         
@@ -107,7 +105,6 @@ class HomeViewController: UIViewController {
         present(vc, animated: true)
 
     }
-  
 }
 
 extension HomeViewController: UIViewControllerTransitioningDelegate{
@@ -120,8 +117,6 @@ extension HomeViewController: UIViewControllerTransitioningDelegate{
        {
            return AnimatorController(presentationImage: homeImage)
        }
-    
-
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return nil

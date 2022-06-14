@@ -36,20 +36,20 @@ final class RootViewController: UITabBarController {
 
 private extension RootViewController{
     func makeSearchViewController() -> UIViewController{
-        let content = UINavigationController(rootViewController: SearchViewController(state: appState))
+        let content = SearchViewController(state: appState)
         content.tabBarItem = .init(title: "", image: UIImage(systemName: "magnifyingglass")?.withTintColor(.main), tag: 0)
         return content
     }
     
     func makeFavouritesViewController() -> UIViewController{
-        let container = UINavigationController(rootViewController: FavoritesViewController(state: appState))
+        let container = FavoritesViewController(state: appState)
         container.tabBarItem = .init(title: "", image: UIImage(systemName: "heart"), tag: 0)
         return container
     }
     
     
     func makeHomeViewController() -> UIViewController{
-        let content = UINavigationController(rootViewController: HomeViewController())
+        let content = HomeViewController()
         
         content.tabBarItem = .init(title: "", image: UIImage(systemName: "house")?.withTintColor(.main), tag: 0)
         return content

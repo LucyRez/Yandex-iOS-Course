@@ -24,6 +24,7 @@
 		DB32F51C283AB5B8005902CB /* GalleryHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32F51B283AB5B7005902CB /* GalleryHomeViewController.swift */; };
 		DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32F51D283AC55A005902CB /* ImageScrollView.swift */; };
 		DB32F521283BAB6B005902CB /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32F520283BAB6A005902CB /* StateController.swift */; };
+		DB5A276E2858B054002BED12 /* FavouritesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5A276D2858B054002BED12 /* FavouritesHeaderView.swift */; };
 		DB6711BA284FB65B001B0C9E /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6711B9284FB65B001B0C9E /* Storage.swift */; };
 		DB7D6C8628299CA300A593FD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D6C8528299CA300A593FD /* SearchViewController.swift */; };
 		DB8181CA28562F7E002CBCC4 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8181C928562F7D002CBCC4 /* Character.swift */; };
@@ -60,6 +61,7 @@
 		DB32F51B283AB5B7005902CB /* GalleryHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryHomeViewController.swift; sourceTree = "<group>"; };
 		DB32F51D283AC55A005902CB /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		DB32F520283BAB6A005902CB /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
+		DB5A276D2858B054002BED12 /* FavouritesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesHeaderView.swift; sourceTree = "<group>"; };
 		DB6711B9284FB65B001B0C9E /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		DB7D6C8528299CA300A593FD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB8181C928562F7D002CBCC4 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				DB147ED92820837D00E0BEA2 /* CharacterInfoCellView.swift */,
 				DB32F51D283AC55A005902CB /* ImageScrollView.swift */,
 				DB10DC2C283D46790027B280 /* CharacterView.swift */,
+				DB5A276D2858B054002BED12 /* FavouritesHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				DB908FDA2829573000F4923B /* Colors.swift in Sources */,
 				DB315369283A5DA900C6C7AB /* HomeViewController.swift in Sources */,
 				DB8181CC2856310C002CBCC4 /* APIResponseModel.swift in Sources */,
+				DB5A276E2858B054002BED12 /* FavouritesHeaderView.swift in Sources */,
 				DB147EDA2820837D00E0BEA2 /* CharacterInfoCellView.swift in Sources */,
 				DB32F521283BAB6B005902CB /* StateController.swift in Sources */,
 				DB32F51E283AC55B005902CB /* ImageScrollView.swift in Sources */,

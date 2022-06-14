@@ -24,15 +24,15 @@ final class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .background
-        
+        tableView.dataSource = self
+        tableView.delegate = self
         setUp()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.backgroundColor = .background
+        
         Task{
             favorites = await stateController.getFavCharacters()
             DispatchQueue.main.async {
@@ -44,21 +44,17 @@ final class FavoritesViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-
     }
  
     
     private func setUp(){
         view.addSubview(tableView)
-        tableView.dataSource = self
-        tableView.delegate = self
-
-        
+    
         view.subviews.forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        tableView.tableHeaderView = Header(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 78))
-              
+        
+        tableView.tableHeaderView = FavouritesHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 78))
     }
     
     override func viewDidLayoutSubviews() {
@@ -75,30 +71,6 @@ final class FavoritesViewController: UIViewController {
     }()
 }
 
-private final class Header: UIView{
-    let label = UILabel(frame: .zero)
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 1
-        label.textColor = .main
-        label.font = .boldSystemFont(ofSize: 34)
-        label.text = "Favorites"
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
-            label.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-}
 
 extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,12 +91,7 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let character = favorites[indexPath.row]
-//        let characterVC = CharacterViewController(model: CharacterViewController.Model(name: character.name, status: character.status, species: character.species, gender: character.gender, imageURL: character.imageURL, isLiked: true), state: stateController)
-//        
-//        let isLiked = stateController.favorites.contains(where: {(char: CharacterModel) -> Bool in
-//            char.name == character.name
-//        })
-//        
+
         let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: true))
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -136,8 +103,8 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         139
     }
-    
 }
+
 
 final class CharacterCell: UITableViewCell{
     static let identifier = "CharacterCell"
@@ -168,7 +135,20 @@ final class CharacterCell: UITableViewCell{
         contentView.addSubview(nameLabel)
         contentView.addSubview(line)
         updateInfo()
+        setUpConstraints()
         
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func updateInfo(){
+        icon.kf.setImage(with: iconURL)
+        nameLabel.text = name
+    }
+    
+    private func setUpConstraints(){
         contentView.subviews.forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -187,15 +167,6 @@ final class CharacterCell: UITableViewCell{
             line.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             line.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func updateInfo(){
-        icon.kf.setImage(with: iconURL)
-        nameLabel.text = name
     }
     
     private lazy var icon: UIImageView = {

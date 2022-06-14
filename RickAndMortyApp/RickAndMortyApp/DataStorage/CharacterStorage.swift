@@ -47,11 +47,5 @@ class CharacterStorage: Storage{
 
     
     }
-    
-  
-
-    
-//    func saveCharacters(_ characters: [Character], for category: Category) async throws
-//    func getCharacters(from category: Category) async -> [Character]
   
 }
