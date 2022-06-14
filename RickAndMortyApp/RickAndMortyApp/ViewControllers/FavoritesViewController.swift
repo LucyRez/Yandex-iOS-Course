@@ -33,7 +33,6 @@ final class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.backgroundColor = .background
-        print("Loaded favorites")
         Task{
             favorites = await stateController.getFavCharacters()
             DispatchQueue.main.async {
@@ -127,10 +126,6 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
 //        })
 //        
         let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: true))
-        
-        Task{
-            await stateController.addToRecent(characterToAdd: character)
-        }
         navigationController?.pushViewController(vc, animated: true)
     }
     

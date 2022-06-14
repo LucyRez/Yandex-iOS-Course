@@ -22,11 +22,6 @@ final class SearchViewController: UIViewController {
         stateController = state
         isSearching = false
         super.init(nibName: nil, bundle: nil)
-        
-        Task{
-            recents = await state.getSearchedCharacters()
-        }
-        
     }
     
     required init?(coder: NSCoder) {
@@ -53,7 +48,12 @@ final class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        tableView.reloadData()
+        Task{
+            recents = await stateController.getSearchedCharacters()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     
@@ -158,7 +158,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSectionView.identifier , for: indexPath) as? RecentSectionView else{
                 return UITableViewCell()
             }
-            //cell.navigationController = navigationController!
+            
+            cell.navigationController = navigationController!
             cell.state = stateController
             cell.charactersToShow = recents
             return cell
@@ -183,7 +184,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         
         let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: false))
         
-        //stateController.addToRecent(name: character.name)
+        Task{
+            await stateController.addToRecent(characterToAdd: character)
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -299,13 +302,13 @@ extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         //            char.name == character.name
         //        })
         
-        //        let vc = UIHostingController(rootView: CharacterView(state: state!, model: character, isLiked: isLiked ?? false ))
-        //
-        //
-        //        state?.addToRecent(name: character.name)
-        //        navigationController?.pushViewController(vc, animated: true)
+        let vc = UIHostingController(rootView: CharacterView(state: state!, model: character, isLiked: false ))
         
-        
+        Task{
+            await state?.addToRecent(characterToAdd: character)
+
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

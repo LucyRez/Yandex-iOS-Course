@@ -21,8 +21,6 @@ extension APIRequest{
             throw APIError.noResponse
         }
         
-        print(url)
-
         guard response.statusCode == 200 else {
             throw APIError.not200
         }
