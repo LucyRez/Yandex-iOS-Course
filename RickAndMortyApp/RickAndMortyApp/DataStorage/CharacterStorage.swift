@@ -22,28 +22,28 @@ class CharacterStorage: Storage{
         documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
     
-    func save<DataModel: Codable>(_ data: DataModel, forKey key: Category.RawValue) async throws {
+    func save(_ data: DataModel, forKey key: Category.RawValue) async throws {
         let url = documentsURL.appendingPathComponent("\(key).json")
         let jsonData = try JSONEncoder().encode(data)
         try jsonData.write(to: url)
     }
     
-    func get<DataModel: Codable>(forKey key: Category.RawValue) async -> DataModel? {
+    func get(forKey key: Category.RawValue) async -> DataModel? {
         let url = documentsURL.appendingPathComponent("\(key).json")
         guard FileManager.default.fileExists(atPath: url.path) else{
-            return [] as? DataModel
+            return []
         }
         let content = FileManager.default.contents(atPath: url.path)!
 
         do{
-            return try JSONDecoder().decode([Character].self, from: content) as? DataModel
+            return try JSONDecoder().decode([Character].self, from: content)
 
         }catch{
             print(error)
             // TODO: Log error
         }
         
-        return [] as? DataModel
+        return []
 
     
     }

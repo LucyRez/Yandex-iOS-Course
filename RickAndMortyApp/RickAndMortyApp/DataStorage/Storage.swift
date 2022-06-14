@@ -10,8 +10,8 @@ import Foundation
 protocol Storage{
     associatedtype DataModel: Codable
 
-    func save<DataModel: Codable>(_ data: DataModel, forKey key: String) async throws
-    func get<DataModel: Codable>(forKey key: String) async -> DataModel?
+    func save(_ data: DataModel, forKey key: String) async throws
+    func get(forKey key: String) async -> DataModel?
 }
 
 

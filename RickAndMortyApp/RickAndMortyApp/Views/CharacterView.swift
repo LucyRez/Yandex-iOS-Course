@@ -38,10 +38,14 @@ struct CharacterView: View {
                     
                     Button(action: {
                         if !isLiked{
-                            state.addToFavorites(name: model.name)
+                            Task{
+                                await state.addToFavorites(characterToAdd: model)
+                            }
                             
                         }else{
-                            state.removeFromFavourites(name: model.name)
+                            Task{
+                                await state.removeFromFavourites(characterToRemove: model)
+                            }
                         }
                         
                         isLiked.toggle()

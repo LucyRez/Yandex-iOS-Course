@@ -16,15 +16,17 @@ final class SearchViewController: UIViewController {
     var isSearching: Bool
     var filteredCharacters: [Character] = []
     
-    //
-    //    var recentCharacters: [Character]{
-    //        return stateController.recents
-    //    }
+    var recents: [Character] = []
     
     init(state: StateController){
         stateController = state
         isSearching = false
         super.init(nibName: nil, bundle: nil)
+        
+        Task{
+            recents = await state.getSearchedCharacters()
+        }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -158,7 +160,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
             //cell.navigationController = navigationController!
             cell.state = stateController
-            cell.charactersToShow = stateController.recents
+            cell.charactersToShow = recents
             return cell
             
         }else{
@@ -225,11 +227,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 
 final class RecentSectionView: UITableViewCell{
     
-    var characters: [CharacterModel] = []
+    var characters: [Character] = []
     var navigationController: UINavigationController?
     var state: StateController?
     
-    var charactersToShow: [CharacterModel] {
+    var charactersToShow: [Character] {
         set{
             characters = newValue
             collection.reloadData()
@@ -282,7 +284,7 @@ extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         }
         
         
-        cell.iconURL = charactersToShow[indexPath.row].imageURL
+        cell.iconURL = URL(string: charactersToShow[indexPath.row].imageURL!)!
         
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 1

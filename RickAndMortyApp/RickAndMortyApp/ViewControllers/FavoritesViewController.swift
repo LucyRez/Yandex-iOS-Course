@@ -11,11 +11,10 @@ import SwiftUI
 final class FavoritesViewController: UIViewController {
     
     var stateController: StateController
-    var favorites: [CharacterModel]
+    var favorites: [Character] = []
     
     init(state: StateController){
         stateController = state
-        favorites = stateController.favorites
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,15 +25,21 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
+        
         setUp()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        favorites = stateController.favorites
         view.backgroundColor = .background
-        tableView.reloadData()
+        print("Loaded favorites")
+        Task{
+            favorites = await stateController.getFavCharacters()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -106,7 +111,7 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
         
-        cell.iconURL = favorites[indexPath.row].imageURL
+        cell.iconURL = URL(string: favorites[indexPath.row].imageURL!)!
         cell.name = favorites[indexPath.row].name
         
         return cell
@@ -121,11 +126,12 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
 //            char.name == character.name
 //        })
 //        
-//        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: isLiked))
-//        stateController.addToRecent(name: character.name)
-//
-//        
-//        navigationController?.pushViewController(vc, animated: true)
+        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: true))
+        
+        Task{
+            await stateController.addToRecent(characterToAdd: character)
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

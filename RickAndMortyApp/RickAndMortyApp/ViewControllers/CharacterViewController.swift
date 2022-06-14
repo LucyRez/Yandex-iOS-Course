@@ -10,7 +10,6 @@ import Kingfisher
 
 final class CharacterViewController: UIViewController {
     
-    var state: StateController
     
     struct Model{
         let name: String
@@ -23,7 +22,6 @@ final class CharacterViewController: UIViewController {
     
     init(model: Model, state: StateController){
         self.model = model
-        self.state = state
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,15 +33,14 @@ final class CharacterViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: true)
         view.backgroundColor = .background
-        model.isLiked = state.favorites.contains(where: {(character: CharacterModel) -> Bool in
-            character.name == model.name
-        })
+//        model.isLiked = state.favorites.contains(where: {(character: CharacterModel) -> Bool in
+//            character.name == model.name
+//        })
         likeButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
         title = "Character"
         setUp()
         updateInfo()
         
-        state.addToRecent(name: model.name)
     }
     
     private func updateInfo(){
@@ -143,9 +140,9 @@ final class CharacterViewController: UIViewController {
     
     @objc func likeButtonPressed() {
         if model.isLiked {
-            state.removeFromFavourites(name: model.name)
+//            state.removeFromFavourites(name: model.name)
         }else{
-            state.addToFavorites(name: model.name)
+//            state.addToFavorites(name: model.name)
         }
         
         model.isLiked = !model.isLiked
