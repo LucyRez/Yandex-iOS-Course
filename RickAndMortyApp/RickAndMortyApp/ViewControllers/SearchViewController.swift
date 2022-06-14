@@ -17,6 +17,7 @@ final class SearchViewController: UIViewController {
     var filteredCharacters: [Character] = []
     
     var recents: [Character] = []
+    var favorites: [Character] = []
     
     init(state: StateController){
         stateController = state
@@ -50,6 +51,8 @@ final class SearchViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         Task{
             recents = await stateController.getSearchedCharacters()
+            favorites = await stateController.getFavCharacters()
+
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -162,6 +165,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             cell.navigationController = navigationController!
             cell.state = stateController
             cell.charactersToShow = recents
+            cell.favorites = favorites
             return cell
             
         }else{
@@ -178,15 +182,16 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let character = filteredCharacters[indexPath.row]
-        //        let isLiked = stateController.favorites.contains(where: {(char: CharacterModel) -> Bool in
-        //            char.name == character.name
-        //        })
+        let isLiked = favorites.contains(where: {(char: Character) -> Bool in
+                char.id == character.id
+        })
         
-        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: false))
+        let vc = UIHostingController(rootView: CharacterView(state: stateController, model: character, isLiked: isLiked))
         
         Task{
             await stateController.addToRecent(characterToAdd: character)
         }
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -231,6 +236,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 final class RecentSectionView: UITableViewCell{
     
     var characters: [Character] = []
+    var favorites: [Character]?
     var navigationController: UINavigationController?
     var state: StateController?
     
@@ -298,11 +304,11 @@ extension RecentSectionView: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let character = charactersToShow[indexPath.row]
         
-        //        let isLiked = state?.favorites.contains(where: {(char: CharacterModel) -> Bool in
-        //            char.name == character.name
-        //        })
+        let isLiked = favorites?.contains(where: {(char: Character) -> Bool in
+            char.id == character.id
+        })
         
-        let vc = UIHostingController(rootView: CharacterView(state: state!, model: character, isLiked: false ))
+        let vc = UIHostingController(rootView: CharacterView(state: state!, model: character, isLiked: isLiked ?? false))
         
         Task{
             await state?.addToRecent(characterToAdd: character)
